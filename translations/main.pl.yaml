@@ -1,1 +1,8 @@
-test: 'To jest test'
+title: 'Witam w aplikacji szybka faktura'
+language: "Wybierz jezyk"
+about: "Jest to prosta aplikacja, w ktorej po zalogowaniu sie masz mozliwosc wygenerowania nowych faktur, oraz wgladu do histori dokumentow."
+moreAbout: "Aplikacja ta powstala z potrzeby posiadania takiej funkcjonalnosci oraz jako moje portfolio.
+Nie posiada ona zadnego ukrytego okresu probnego,
+po zalogowaniu sie masz mozliwosc korzystanai z niej do woli."
+register: "Zarejestruj sie"
+login: "Zaloguj sie"

@@ -8,6 +8,14 @@
         {% endblock %}
     </head>
     <body>
+        <nav class="navbar navbar ">
+            <a class="btn btn-outline-success text-white" href="{{ path('main') }}"><img src="{{ asset('images/invoice.png') }}" width="50px" alt=""></a>
+            <div>
+                <p class="d-inline bg-secondary btn btn-light text-white">{{ 'language'|trans([], 'main') }}</p>
+                <a class="btn btn-sm btn-light" href="{{ path('pl') }}" type="button">pl</a>
+                <a class="btn btn-sm btn-light" href="{{ path('en') }}" type="button">en</a>
+            </div>
+        </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

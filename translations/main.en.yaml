@@ -1,1 +1,8 @@
-test: "This is test"
+title: "Welcome in fast invoice application"
+language: "Choose your language"
+about: "It is a simple application where you have access to create new invoices and check history of them"
+moreAbout: "I created this application for my portfolio and because I require that functionality. It is for everyone.
+You can use it whatever you want.
+There is no trials or anything like that."
+register: "Register"
+login: "Login"
