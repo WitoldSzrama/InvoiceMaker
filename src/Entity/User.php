@@ -3,10 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Utilities\InvoiceMenagerutilities;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"email"}, message="message.unique")
  */
 class User extends Company implements UserInterface
 {
@@ -19,6 +23,8 @@ class User extends Company implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -30,8 +36,14 @@ class User extends Company implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Regex(InvoiceMenagerutilities::PASSWORD_REGEX)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $termsAccepted = false;
 
     public function getId(): ?int
     {
@@ -109,5 +121,17 @@ class User extends Company implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getTermsAccepted(): ?bool
+    {
+        return $this->termsAccepted;
+    }
+
+    public function setTermsAccepted(bool $termsAccepted): self
+    {
+        $this->termsAccepted = $termsAccepted;
+
+        return $this;
     }
 }

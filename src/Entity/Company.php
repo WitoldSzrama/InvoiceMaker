@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
@@ -18,6 +19,11 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="message.minNameMessage",
+     *     max="100"
+     * )
      */
     private $name;
 
@@ -32,22 +38,22 @@ class Company
     private $regon;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $postCode;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $street;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $stNumber;
 

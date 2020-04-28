@@ -1,0 +1,6 @@
+agreeTermsMessage: "Musisz zaakceptowac regulamin."
+minNameMessage: "Nazwa musi posaidac minimum 2 znaki."
+unique: "Ten mail juz istnieje w bazie, prosze wybrac inny"
+help:
+  lengthName: "Nazwa firmy powinna byc nie krotsza niz 2 znaki i nie dluzsza niz 100."
+  password: 'Minimum 6 znakow, przynajmniej jedna duza litera, jedna mala oraz jedna cyfra.'

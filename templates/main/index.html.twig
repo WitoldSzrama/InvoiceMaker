@@ -3,20 +3,16 @@
 {% block title %}Hello MainController!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="jumbotron opacity-half">
-            <h1>{{ 'title'|trans([], 'main') }}</h1>
-            <p class="lead">{{ 'about'|trans([], 'main') }}</p>
-            <hr class="my-4">
-            <p>{{ 'moreAbout'|trans([], 'main') }}</p>
-            <div class="row">
-                <div class="col-sm text-left">
-                    <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}" role="button">{{ 'login'|trans([], 'main') }}</a>
-                </div>
-                <div class="col-sm text-right">
-                    <a class="btn btn-secondary btn-lg" href="{{ path('app_login') }}" role="button">{{ 'register'|trans([], 'main') }}</a>
-                </div>
+        <h1>{{ 'title'|trans([], 'main') }}</h1>
+        <p class="lead">{{ 'about'|trans([], 'main') }}</p>
+        <hr class="my-4">
+        <p>{{ 'moreAbout'|trans([], 'main') }}</p>
+        <div class="row">
+            <div class="col-sm text-left">
+                <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}" role="button">{{ 'login'|trans([], 'main') }}</a>
+            </div>
+            <div class="col-sm text-right">
+                <a class="btn btn-secondary btn-lg" href="{{ path('app_register') }}" role="button">{{ 'register'|trans([], 'main') }}</a>
             </div>
         </div>
-    </div>
 {% endblock %}

@@ -24,7 +24,15 @@ let colorGenerator = function getRandomColor() {
     }
     return color;
 }
+let jumbo = $(".jumbotron");
 
-$('h1').on('click', function (tag) {
-    $('h1').css('color',colorGenerator());
-})
+jumbo.hide().fadeIn('slow');
+
+$(document).ready(function () {
+    window.setTimeout("fadeMyJumbotron();", 5000);
+    }
+);
+
+function fadeMyJumbotron() {
+    $(jumbo).fadeOut('slow');
+}
