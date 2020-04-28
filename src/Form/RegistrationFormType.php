@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationFormType extends AbstractType
@@ -37,7 +38,7 @@ class RegistrationFormType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options'  => [
-                    'attr' => InvoiceMenagerutilities::PASSWORD_REGEX,
+                    'attr' => ['pattern' => InvoiceMenagerutilities::PASSWORD_REGEX],
                     'label' => $this->translator->trans('password', [], 'labels'),
                     'help' => $this->translator->trans('help.password', [], 'message'),
                 ],

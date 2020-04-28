@@ -36,7 +36,7 @@ class User extends Company implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\Regex(InvoiceMenagerutilities::PASSWORD_REGEX)
+     * @Assert\Regex(pattern=InvoiceMenagerutilities::PASSWORD_REGEX)
      */
     private $password;
 

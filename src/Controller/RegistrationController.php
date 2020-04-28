@@ -31,7 +31,7 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-            $user->setTermsAccepted($form->getData()['agreeTerms']);
+            $user->setTermsAccepted($form->get('agreeTerms')->getData());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
