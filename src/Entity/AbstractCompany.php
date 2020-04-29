@@ -6,17 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
+ * @ORM\MappedSuperclass()
  */
-class Company
+abstract class AbstractCompany
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
@@ -61,11 +54,6 @@ class Company
      * @ORM\Column(type="integer", nullable=true)
      */
     private $accountNumber;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getName(): ?string
     {

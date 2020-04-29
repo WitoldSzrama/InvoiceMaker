@@ -12,8 +12,9 @@ use App\Utilities\InvoiceMenagerutilities;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="message.unique")
  */
-class User extends Company implements UserInterface
+class User extends AbstractCompany implements UserInterface
 {
+    const REGEX = '/'.InvoiceMenagerutilities::PASSWORD_REGEX.'/';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,7 +37,7 @@ class User extends Company implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\Regex(pattern=InvoiceMenagerutilities::PASSWORD_REGEX)
+     * @Assert\Regex(pattern=User::REGEX)
      */
     private $password;
 
