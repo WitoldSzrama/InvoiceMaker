@@ -1,0 +1,29 @@
+.button_cont{
+  width: 15em;
+  height: 10em;
+}
+.button {
+  color: darkgreen;
+  text-transform: uppercase;
+  background: transparent;
+  padding: 20px;
+  border: 4px solid green;
+  border-radius: 6px;
+  transition: all 0.3s ease 0s;
+  width: 15em;
+  text-align: center;
+  display: inline-block;
+}
+
+.button:hover {
+  color: #494949;
+  border-radius: 50px;
+  border-color: #494949;
+  transition: all 0.3s ease 0s;
+}
+.edit-button:hover {
+  color: lawngreen;
+}
+.delete-button:hover {
+  color: red;
+}

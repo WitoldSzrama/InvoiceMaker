@@ -1,7 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
-body {
-    background-image: url('../../images/office.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+@import "button";
+@import "main";
 

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.name|upper }}{% endblock %}
+
+{% block body %}
+    {{ form_start(companyForm) }}
+        {{ form_widget(companyForm) }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form_end(companyForm) }}
+{% endblock %}

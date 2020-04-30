@@ -11,6 +11,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class AbstractCompany
 {
     /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *     min="2",
@@ -54,6 +61,11 @@ abstract class AbstractCompany
      * @ORM\Column(type="integer", nullable=true)
      */
     private $accountNumber;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getName(): ?string
     {

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,12 +17,6 @@ use App\Utilities\InvoiceMenagerutilities;
 class User extends AbstractCompany implements UserInterface
 {
     const REGEX = '/'.InvoiceMenagerutilities::PASSWORD_REGEX.'/';
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -46,9 +42,14 @@ class User extends AbstractCompany implements UserInterface
      */
     private $termsAccepted = false;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $companies;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->companies = new ArrayCollection();
     }
 
     public function getEmail(): ?string
@@ -132,6 +133,37 @@ class User extends AbstractCompany implements UserInterface
     public function setTermsAccepted(bool $termsAccepted): self
     {
         $this->termsAccepted = $termsAccepted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Company[]
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function addCompany(Company $company): self
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+            $company->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): self
+    {
+        if ($this->companies->contains($company)) {
+            $this->companies->removeElement($company);
+            // set the owning side to null (unless already changed)
+            if ($company->getUser() === $this) {
+                $company->setUser(null);
+            }
+        }
 
         return $this;
     }
