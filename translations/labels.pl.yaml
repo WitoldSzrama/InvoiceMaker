@@ -1,3 +1,20 @@
 password: Haslo
 passwordRepeat: Powtorz haslo
 agreeTerms: Akceptuje regulamin
+company:
+  company: Firma
+  nip: Nip
+  regon: Regon
+  options: Opcje
+  name: Nazwa
+  city: Miasto
+  postCode: Kod pocztowy
+  street: Ulica
+  streetNumber: Numer ulicy
+  accountNumber: Numer konta
+invoice:
+  list: Lista Faktur
+  create: Stworz fakture
+  settings: Ustawienia
+  companies: Firmy
+  itemList: Zapisane pozycje

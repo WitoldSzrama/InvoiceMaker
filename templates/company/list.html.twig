@@ -9,10 +9,10 @@
     <table class="table table-striped bg-light">
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">NIP</th>
-                <th scope="col">REGON</th>
-                <th scope="col">Options</th>
+                <th scope="col">{{ 'company.company'|trans([], 'labels') }}</th>
+                <th scope="col">{{ 'company.nip'|trans([], 'labels')|upper }}</th>
+                <th scope="col">{{ 'company.regon'|trans([], 'labels')|upper }}</th>
+                <th class="" scope="col">{{ 'company.options'|trans([], 'labels') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,9 @@
                 <td> {{ company.nip }} </td>
                 <td> {{ company.regon }} </td>
                 <td>
-                    <div class="row">
-                        <a href="#" class="col-4 edit-button"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="#" class="col-4 delete-button"><i class="far fa-trash-alt "></i></a>
+                    <div class="row justify-content-start">
+                        <a href="#" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="#" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
                     </div>
                 </td>
             </tr>

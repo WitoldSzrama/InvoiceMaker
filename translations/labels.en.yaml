@@ -1,3 +1,18 @@
 password: Password
 passwordRepeat: Repeat password
 agreeTerms: Agree terms
+company:
+  company: Company
+  options: Options
+  name: Name
+  city: City
+  postCode: Post code
+  street: Street
+  streetNumber: Street number
+  accountNumber: Account number
+invoice:
+  list: Invoices list
+  create: Create invoice
+  settings: Settings
+  companies: Companies List
+  itemList: Positions saved
