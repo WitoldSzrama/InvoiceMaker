@@ -204,4 +204,5 @@ class User extends AbstractCompany implements UserInterface
 
         return $this;
     }
+
 }

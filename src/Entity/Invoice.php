@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\DateType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,7 +70,7 @@ class Invoice
         return $this->forCompany;
     }
 
-    public function setForCompany(Company $forCompany): self
+    public function setForCompany(?Company $forCompany): self
     {
         $this->forCompany = $forCompany;
 

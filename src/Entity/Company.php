@@ -25,4 +25,6 @@ class Company extends AbstractCompany
 
         return $this;
     }
+
+
 }

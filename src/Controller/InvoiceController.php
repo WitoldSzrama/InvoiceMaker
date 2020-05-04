@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Invoice;
+use App\Form\InvoiceType;
+use App\Repository\CompanyRepository;
+use App\Services\InvoiceFactory;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class InvoiceController extends AbstractController
@@ -47,8 +52,23 @@ class InvoiceController extends AbstractController
         return $this->render('invoice/template.html.twig');
     }
 
-    public function createInvoice()
+    /**
+     * @Route("/invoice/create", name="app_invoice_create")
+     */
+    public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, CompanyRepository $companyRepository, Invoice $invoice = null)
     {
+        if ($invoice == null) {
+            $invoice = $invoiceFactory->createInvoice($this->getUser());
+        }
+        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            dd($form->getData());
+        }
 
+        return  $this->render('invoice/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

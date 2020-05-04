@@ -16,7 +16,7 @@ class InvoiceFactory
         $invoice = new Invoice();
         $invoice->setCreatedAt(new \DateTime());
         $invoice->setByCompany($user);
-        $invoice->setPayTo(new \DateTime('+' . self::PERIOD,$invoice->getCreatedAt()));
-
+        $invoice->setPayTo(new \DateTime('+' . self::PERIOD. 'days', $invoice->getCreatedAt()->getTimezone()));
+        return $invoice;
     }
 }
