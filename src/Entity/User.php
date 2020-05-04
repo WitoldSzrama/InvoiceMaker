@@ -47,9 +47,15 @@ class User extends AbstractCompany implements UserInterface
      */
     private $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="byCompany", orphanRemoval=true)
+     */
+    private $invoices;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     public function getEmail(): ?string
@@ -162,6 +168,37 @@ class User extends AbstractCompany implements UserInterface
             // set the owning side to null (unless already changed)
             if ($company->getUser() === $this) {
                 $company->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Invoice[]
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): self
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setByCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): self
+    {
+        if ($this->invoices->contains($invoice)) {
+            $this->invoices->removeElement($invoice);
+            // set the owning side to null (unless already changed)
+            if ($invoice->getByCompany() === $this) {
+                $invoice->setByCompany(null);
             }
         }
 
