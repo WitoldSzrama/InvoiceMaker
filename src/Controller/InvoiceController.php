@@ -6,6 +6,8 @@ use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\CompanyRepository;
 use App\Services\InvoiceFactory;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,9 +25,9 @@ class InvoiceController extends AbstractController
     }
 
     /**
-     * @Route("/invoice/template", name="app_template")
+     * @Route("/invoice/template/{id}", name="app_template")
      */
-    public function template()
+    public function template(Invoice $invoice)
     {
 
         // Configure Dompdf according to your needs
@@ -36,7 +38,9 @@ class InvoiceController extends AbstractController
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
         // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('invoice/template.html.twig');
+        $html = $this->renderView('invoice/template.html.twig', [
+            'invoice' => $invoice,
+        ]);
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
 
@@ -48,23 +52,29 @@ class InvoiceController extends AbstractController
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("mypdf.pdf", [
         ]);
-
-        return $this->render('invoice/template.html.twig');
+        return $this->render('invoice/template.html.twig', [
+            'invoice' => $invoice,
+        ]);
     }
 
     /**
      * @Route("/invoice/create", name="app_invoice_create")
      */
-    public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, CompanyRepository $companyRepository, Invoice $invoice = null)
+    public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, EntityManagerInterface $em, Invoice $invoice = null)
     {
         if ($invoice == null) {
             $invoice = $invoiceFactory->createInvoice($this->getUser());
         }
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid())
         {
-            dd($form->getData());
+            $em->persist($invoice);
+            $em->flush();
+            return $this->redirectToRoute('app_template', [
+                'id' => $invoice->getId(),
+            ]);
         }
 
         return  $this->render('invoice/create.html.twig', [

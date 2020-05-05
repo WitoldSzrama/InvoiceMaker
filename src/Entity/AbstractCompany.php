@@ -58,7 +58,7 @@ abstract class AbstractCompany
     private $stNumber;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $accountNumber;
 
@@ -139,24 +139,24 @@ abstract class AbstractCompany
         return $this;
     }
 
-    public function getStNumber(): ?int
+    public function getStNumber(): ?string
     {
         return $this->stNumber;
     }
 
-    public function setStNumber(int $stNumber): self
+    public function setStNumber(string $stNumber): self
     {
         $this->stNumber = $stNumber;
 
         return $this;
     }
 
-    public function getAccountNumber(): ?int
+    public function getAccountNumber(): ?string
     {
         return $this->accountNumber;
     }
 
-    public function setAccountNumber(?int $accountNumber): self
+    public function setAccountNumber(?string $accountNumber): self
     {
         $this->accountNumber = $accountNumber;
 

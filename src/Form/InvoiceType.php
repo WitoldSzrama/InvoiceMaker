@@ -26,13 +26,7 @@ class InvoiceType extends AbstractType
     {
         $builder
             ->add('comment')
-            ->add('forCompany', EntityType::class, [
-                'class' => Company::class,
-                'query_builder' => function (CompanyRepository $cr) {
-                    return $cr->findAll();
-                },
-                'choice_label' => 'name'
-            ])
+            ->add('forCompany')
         ;
     }
 

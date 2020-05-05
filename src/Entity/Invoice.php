@@ -23,12 +23,6 @@ class Invoice
     private $byCompany;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Company", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $forCompany;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -48,6 +42,11 @@ class Invoice
      */
     private $invoiceNumber;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="invoices")
+     */
+    private $forCompany;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,18 +64,6 @@ class Invoice
         return $this;
     }
 
-    public function getForCompany(): ?Company
-    {
-        return $this->forCompany;
-    }
-
-    public function setForCompany(?Company $forCompany): self
-    {
-        $this->forCompany = $forCompany;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -89,7 +76,7 @@ class Invoice
         return $this;
     }
 
-    public function getPayTo(): ?int
+    public function getPayTo(): ?\DateTimeInterface
     {
         return $this->payTo;
     }
@@ -111,5 +98,33 @@ class Invoice
         $this->comment = $comment;
 
         return $this;
+    }
+
+    public function getForCompany(): ?Company
+    {
+        return $this->forCompany;
+    }
+
+    public function setForCompany(?Company $forCompany): self
+    {
+        $this->forCompany = $forCompany;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInvoiceNumber()
+    {
+        return $this->invoiceNumber;
+    }
+
+    /**
+     * @param string $invoiceNumber
+     */
+    public function setInvoiceNumber($invoiceNumber): void
+    {
+        $this->invoiceNumber = $invoiceNumber;
     }
 }

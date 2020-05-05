@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>20/05/1/1</title>
     <style>
         @page { margin: 0; }
         body {
@@ -45,24 +45,24 @@
                 <table>
                     <tr>
                         <td >Faktura numer:</td>
-                        <td >20/05/1/1<p/>
+                        <td >20/05/1/1<td/>
                     </tr>
                     <tr>
                         <td>Data wystawienia:</td>
-                        <td>2020/05/1<p/>
+                        <td>{{ invoice.createdAt|date("m/d/Y") }}<td/>
                     </tr>
                     <tr>
                         <td>Data sprzedazy:</td>
-                        <td>2020/05/1<p/>
+                        <td>{{ invoice.createdAt|date("m/d/Y") }}<td/>
                     </tr>
                     <tr>
                         <td>Termin zaplaty:</td>
-                        <td>2020/05/15<p/>
+                        <td>{{ invoice.payTo|date("m/d/Y") }}<td/>
                     </tr>
                 </table>
             </td>
             <td class="table-logo">
-                <h1>Logo here</h1>
+                <h1>{{ invoice.byCompany.name }}</h1>
             </td>
         </tr>
     </table>
@@ -75,22 +75,31 @@
             <th>Nabywca</th>
         </tr>
         <tr>
-            <td> Bzy bzy ltd</td>
-            <td> Ola boga ltd</td>
+            <td> {{ invoice.byCompany }} </td>
+            <td> {{ invoice.forCompany }} </td>
         </tr>
         <tr>
-            <td> Bzycza 9 66-222 Bzyczowo</td>
-            <td> Ola 17 99-66 Bogowa</td>
+            <td>
+                {{ invoice.byCompany.street }}
+                {{ invoice.byCompany.stNumber }}
+                {{ invoice.byCompany.postCode }}
+                {{ invoice.byCompany.city }}
+            <td>
+                {{ invoice.forCompany.street }}
+                {{ invoice.forCompany.stNumber }}
+                {{ invoice.forCompany.postCode }}
+                {{ invoice.forCompany.city }}
+            </td>
         </tr>
         <tr>
-            <td> NIP 96666666666 </td>
-            <td> NIP 17996666666 </td>
+            <td> NIP {{ invoice.byCompany.nip }}  </td>
+            <td> NIP {{ invoice.forCompany.nip }}  </td>
         </tr>
         <tr>
-            <td> Email: bzybzy@tomy.pl </td>
+            <td> Email: {{ invoice.byCompany.email }}  </td>
         </tr>
         <tr>
-            <td> Nr konta: 6666 6666 6666 6666 </td>
+            <td> Nr konta: {{ invoice.byCompany.accountNumber }}  </td>
         </tr>
     </table>
 
@@ -157,6 +166,6 @@
             <td>$180</td>
         </tr>
     </table>
-    <p>Spacznego bzyczenia zyczy firma udlaw sie</p>
+    <p>{{ invoice.comment }}</p>
 </body>
 </html>
