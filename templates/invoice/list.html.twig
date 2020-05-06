@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.name|upper }}{% endblock %}
+
+{% block body %}
+    <div class="text-right">
+        <a class="btn btn-primary mb-2" href="{{ path('app_invoice_add') }}">{{ 'button.add'|trans([], 'main') }}</a>
+    </div>
+    <table class="table table-striped bg-light">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'invoice.createdAt'|trans([], 'labels') }}</th>
+            <th scope="col">{{ 'invoice.number'|trans([], 'labels') }}</th>
+            <th scope="col">{{ 'invoice.forCompany'|trans([], 'labels') }}</th>
+            <th class="" scope="col">{{ 'invoice.value'|trans([], 'labels') }}</th>
+            <th class="" scope="col">{{ 'invoice.overdue'|trans([], 'labels') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td> {{ invoice.createdAt|date('Y/m/d') }} </td>
+                <td> {{ invoice.invoiceNumber }} </td>
+                <td> {{ invoice.invoiceNumber }} </td>
+                <td> 000 </td>
+                <td>
+                    {% if invoice.overdue %}
+                        <div class="alert-danger text-center"> <i class="fas fa-thumbs-down text-center"></i></div>
+                    {% else %}
+                        <div class="alert-success text-center"> <i class="fas fa-thumbs-up"></i></div>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="row justify-content-start">
+                        <a href="#" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="#" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
+                        <a href="#" class="col-3 delete-button"><i class="fas fa-file-download"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

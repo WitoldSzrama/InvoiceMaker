@@ -6,3 +6,5 @@ Nie posiada ona zadnego ukrytego okresu probnego,
 po zalogowaniu sie masz mozliwosc korzystanai z niej do woli."
 register: "Zarejestruj sie"
 login: "Zaloguj sie"
+button:
+  add: Dodaj

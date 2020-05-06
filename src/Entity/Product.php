@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,12 +29,12 @@ class Product
     private $quantity;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $netValue;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $grossValue;
 
@@ -55,6 +57,16 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Invoice", mappedBy="products")
+     */
+    private $invoices;
+
+    public function __construct()
+    {
+        $this->invoices = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -155,5 +167,38 @@ class Product
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Invoice[]
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): self
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): self
+    {
+        if ($this->invoices->contains($invoice)) {
+            $this->invoices->removeElement($invoice);
+            $invoice->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name . ' NET:' . $this->netValue .'  VAT:' .$this->vat . ' QUANTITY:' . $this->quantity;
     }
 }

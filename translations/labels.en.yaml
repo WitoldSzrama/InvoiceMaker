@@ -11,8 +11,23 @@ company:
   streetNumber: Street number
   accountNumber: Account number
 invoice:
+  createdAt: Created
+  number: Invoice number
+  forCompany: For
+  value: Value
+  overdue: Overdue
+  products: Products/Services
+  products.choose: Choose product from list
   list: Invoices list
   create: Create invoice
   settings: Settings
   companies: Companies List
   itemList: Positions saved
+  comment: Comment
+  company: For
+product:
+  name: Name
+  quantity: Quantity
+  netValue: Net Value
+  grossValue: Gross value
+  forPeriod: For period

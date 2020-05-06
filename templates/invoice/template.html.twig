@@ -111,48 +111,15 @@
             <th>Vat</th>
             <th>Wartosc brutto</th>
         </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>5</td>
-            <td>10000</td>
-            <td>23%</td>
-            <td>12300</td>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>5</td>
-            <td>10000</td>
-            <td>23%</td>
-            <td>12300</td>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>5</td>
-            <td>10000</td>
-            <td>23%</td>
-            <td>12300</td>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>5</td>
-            <td>10000</td>
-            <td>23%</td>
-            <td>12300</td>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>5</td>
-            <td>10000</td>
-            <td>23%</td>
-            <td>12300</td>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>5</td>
-            <td>10000</td>
-            <td>23%</td>
-            <td>12300</td>
-        </tr>
+        {% for product in invoice.products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.netValue }} {{ product.currency }}</td>
+                <td>{{ product.vat }} %</td>
+                <td>{{ product.grossValue }} {{ product.currency }}</td>
+            </tr>
+        {% endfor %}
     </table>
 
     <hr>

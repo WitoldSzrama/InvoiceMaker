@@ -11,13 +11,13 @@
 
     <div class="row justify-content-around">
         <div class="col-3 button_cont">
-            <a class="button" href="{{ path('app_company_list') }}" role="button">
+            <a class="button" href="{{ path('app_invoice_list') }}" role="button">
                 <i class="fas fa-file-invoice-dollar fa-2x mb-2"></i>
                 <p>{{ 'invoice.list'|trans([], 'labels')|upper }}</p>
             </a>
         </div>
         <div class="col-3 button_cont">
-            <a class="button" href="{{ path('app_invoice_create') }}" role="button">
+            <a class="button" href="{{ path('app_invoice_add') }}" role="button">
                 <i class="fas fa-plus fa-2x mb-2"></i>
                 <p>{{ 'invoice.create'|trans([], 'labels')|upper }}</p>
             </a>
@@ -41,7 +41,7 @@
             </a>
         </div>
         <div class="col-3 button_cont">
-            <a class="button" href="{{ path('app_company_list') }}" role="button">
+            <a class="button" href="{{ path('app_product_list') }}" role="button">
                 <i class="fas fa-list-ul fa-2x mb-2"></i>
                 <p>{{ 'invoice.itemList'|trans([], 'labels')|upper }}</p>
             </a>

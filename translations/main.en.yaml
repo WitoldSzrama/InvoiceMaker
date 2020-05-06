@@ -6,3 +6,5 @@ You can use it whatever you want.
 There is no trials or anything like that."
 register: "Register"
 login: "Login"
+button:
+  add: Add new

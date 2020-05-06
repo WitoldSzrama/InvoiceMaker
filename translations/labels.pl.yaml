@@ -13,8 +13,23 @@ company:
   streetNumber: Numer ulicy
   accountNumber: Numer konta
 invoice:
+  createdAt: Utworzona
+  number: Numer faktury
+  forCompany: Nabywca
+  value: Wartosc
+  overdue: Termin przekroczony
   list: Lista Faktur
   create: Stworz fakture
   settings: Ustawienia
   companies: Firmy
+  products: Produkty/Uslugi
+  products.choose: Wybierz produkt z listy
   itemList: Zapisane pozycje
+  comment: Komentarz
+  company: Nabywca
+product:
+  name: Nazwa
+  quantity: Ilosc
+  netValue: Cena netto
+  grossValue: Cena Brutto
+  forPeriod: Za okres

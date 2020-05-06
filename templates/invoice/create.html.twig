@@ -4,7 +4,23 @@
 
 {% block body %}
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.forCompany) }}
+        {{ form_row(form.comment) }}
+
+        {{ form_label(form.products) }}
+        {{ form_errors(form.products) }}
+        {% if form.products|length < 1 %}
+            {% do form.products.setRendered() %}
+        {% endif %}
+        <ul class="products list-group list-group-flush" data-prototype="{{ form_widget(form.products.vars.prototype)|e('html_attr') }}">
+            <li class="list-group-item bg-transparent">{{ form_row(form.existProduct) }}</li>
+            {% for products in form.products %}
+                <li class="list-group-item">
+                    {{ form_errors(product) }}
+                    {{ form_widget(product) }}
+                </li>
+            {% endfor %}
+        </ul>
         <button type="submit" class="btn btn-primary">Create</button>
     {{ form_end(form) }}
 {% endblock %}

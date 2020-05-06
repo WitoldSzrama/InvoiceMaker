@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\CompanyRepository;
+use App\Repository\InvoiceRepository;
 use App\Services\InvoiceFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,7 +59,7 @@ class InvoiceController extends AbstractController
     }
 
     /**
-     * @Route("/invoice/create", name="app_invoice_create")
+     * @Route("/invoice/create", name="app_invoice_add")
      */
     public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, EntityManagerInterface $em, Invoice $invoice = null)
     {
@@ -79,6 +80,18 @@ class InvoiceController extends AbstractController
 
         return  $this->render('invoice/create.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/invoice/list", name="app_invoice_list")
+     */
+    public function list(InvoiceRepository $invoiceRepository)
+    {
+        $invoices = $invoiceRepository->findAll();
+
+        return $this->render('invoice/list.html.twig', [
+           'invoices' => $invoices,
         ]);
     }
 }

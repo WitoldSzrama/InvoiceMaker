@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Invoice
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="invoices")
      */
     private $forCompany;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="invoices")
+     */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,6 +124,15 @@ class Invoice
         return $this;
     }
 
+    public function overdue()
+    {
+        if ($this->payTo < new \DateTime()){
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * @return string
      */
@@ -127,4 +148,31 @@ class Invoice
     {
         $this->invoiceNumber = $invoiceNumber;
     }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+        }
+
+        return $this;
+    }
+
 }
