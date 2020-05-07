@@ -20,18 +20,26 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function queryProductByUser(User $user)
+    {
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.user = :user')
+        ->setParameter('user', $user)
+        ->orderBy('p.name', 'ASC')
+        ;
+
+    }
+
     /**
      * @return Product[]
      */
     public function getProductsByUser(User $user)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.user = :user')
-            ->setParameter('user', $user)
-            ->orderBy('p.name', 'DESC')
+        $qb = $this->queryProductByUser($user);
+
+        return $qb
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     // /**

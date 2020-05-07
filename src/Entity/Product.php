@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
+     * @Groups("apiProduct")
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,36 +21,43 @@ class Product
     private $id;
 
     /**
+     * @Groups("apiProduct")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Groups("apiProduct")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $quantity;
 
     /**
+     * @Groups("apiProduct")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $netValue;
 
     /**
+     * @Groups("apiProduct")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $grossValue;
 
     /**
+     * @Groups("apiProduct")
      * @ORM\Column(type="integer")
      */
     private $vat;
 
     /**
+     * @Groups("apiProduct")
      * @ORM\Column(type="string", length=20)
      */
     private $currency;
 
     /**
+     * @Groups("apiProduct")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $forPeriod;
@@ -59,7 +68,7 @@ class Product
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Invoice", mappedBy="products")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Invoice", mappedBy="products", cascade={"persist"})
      */
     private $invoices;
 
@@ -71,6 +80,13 @@ class Product
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string

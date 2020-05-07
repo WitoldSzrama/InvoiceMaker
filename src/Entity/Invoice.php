@@ -50,7 +50,7 @@ class Invoice
     private $forCompany;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="invoices")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="invoices", cascade={"persist"})
      */
     private $products;
 
