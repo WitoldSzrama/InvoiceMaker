@@ -23,8 +23,7 @@
                 <td> {{ company.regon }} </td>
                 <td>
                     <div class="row justify-content-start">
-                        <a href="#" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="#" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
+                        <a href="{{ path('app_company_edit', {'id' : company.id }) }}" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
                     </div>
                 </td>
             </tr>

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -34,13 +35,13 @@ class Product
 
     /**
      * @Groups("apiProduct")
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="decimal", nullable=true, scale=2)
      */
     private $netValue;
 
     /**
      * @Groups("apiProduct")
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="decimal", nullable=true, precision=10 , scale=2)
      */
     private $grossValue;
 
@@ -55,12 +56,6 @@ class Product
      * @ORM\Column(type="string", length=20)
      */
     private $currency;
-
-    /**
-     * @Groups("apiProduct")
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $forPeriod;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
@@ -113,24 +108,24 @@ class Product
         return $this;
     }
 
-    public function getNetValue(): ?int
+    public function getNetValue(): ?string
     {
         return $this->netValue;
     }
 
-    public function setNetValue(int $netValue): self
+    public function setNetValue(?string $netValue): self
     {
         $this->netValue = $netValue;
 
         return $this;
     }
 
-    public function getGrossValue(): ?int
+    public function getGrossValue(): ?string
     {
         return $this->grossValue;
     }
 
-    public function setGrossValue(int $grossValue): self
+    public function setGrossValue(?string $grossValue): self
     {
         $this->grossValue = $grossValue;
 
@@ -157,18 +152,6 @@ class Product
     public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
-
-        return $this;
-    }
-
-    public function getForPeriod(): ?string
-    {
-        return $this->forPeriod;
-    }
-
-    public function setForPeriod(?string $forPeriod): self
-    {
-        $this->forPeriod = $forPeriod;
 
         return $this;
     }

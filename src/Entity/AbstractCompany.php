@@ -58,6 +58,10 @@ abstract class AbstractCompany
     private $stNumber;
 
     /**
+     * @Assert\CardScheme(
+     *  schemes={"VISA"},
+     *  message="Your credit card number is invalid."
+     * )
      * @ORM\Column(type="string", nullable=true)
      */
     private $accountNumber;

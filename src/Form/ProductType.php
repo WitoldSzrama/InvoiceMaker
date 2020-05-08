@@ -4,36 +4,33 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Services\ProductFactory;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProductType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
     private $translator;
-    /**
-     * @var ProductFactory
-     */
     private $productFactory;
-    /**
-     * @var Security
-     */
     private $security;
+    private $user;
 
-    public function __construct(TranslatorInterface $translator, ProductFactory $productFactory, Security $security)
+    public function __construct(TranslatorInterface $translator, ProductFactory $productFactory, Security $security, UserRepository $user)
     {
         $this->translator = $translator;
         $this->productFactory = $productFactory;
         $this->security = $security;
+        $this->user = $user;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -48,25 +45,23 @@ class ProductType extends AbstractType
             ->add('quantity', null, [
                 'label' => $this->translator->trans('product.quantity', [], 'labels')
             ])
-            ->add('netValue', null, [
-                'label' => $this->translator->trans('product.netValue', [], 'labels')
+            ->add('netValue', MoneyType::class, [
+                'label' => $this->translator->trans('product.netValue', [], 'labels'),
+                'currency' => $this->productFactory::CURRENCY,
             ])
-            ->add('grossValue', null, [
-                'label' => $this->translator->trans('product.grossValue', [], 'labels')
+            ->add('grossValue', MoneyType::class, [
+                'label' => $this->translator->trans('product.grossValue', [], 'labels'),
+                'currency' => $this->productFactory::CURRENCY,
             ])
             ->add('vat', ChoiceType::class, [
                 'choices' => $this->productFactory->getVatChoices(),
             ])
-            ->add('forPeriod', null, [
-                'label' => $this->translator->trans('product.forPeriod', [], 'labels')
-            ])
-            ->add('currency',HiddenType::class, [
-                'data' => $this->productFactory::CURRENCY,
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'data' => $this->security->getUser()->getId(),
-            ])
+            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event){
+                $product = $event->getData();
+                $user = $this->user->findOneBy(['id' => $this->security->getUser()->getId()]);
+                $product->setUser($this->security->getUser());
+                $product->setCurrency($this->productFactory::CURRENCY);
+            })
         ;
     }
 

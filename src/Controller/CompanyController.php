@@ -13,14 +13,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompanyController extends AbstractController
 {
     /**
-     * @Route("/invoice/company-create", name="app_company_add")
+     * @Route("/invoice/company-create/{id}/{emptyInvoice}", name="app_company_add")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request, EntityManagerInterface $em)
+    public function create(Company $company = null, Request $request, EntityManagerInterface $em, $emptyInvoice = null, $id = null)
     {
-        $form = $this->createForm(CompanyType::class);
+        if($company === null) {
+            $company = new Company();
+        }
+        $form = $this->createForm(CompanyType::class, $company);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -30,6 +33,9 @@ class CompanyController extends AbstractController
 
             $em->persist($company);
             $em->flush();
+            if($emptyInvoice !== null) {
+                return $this->redirectToRoute('app_invoice_add');
+            }
             return $this->redirectToRoute('app_invoice');
         }
 
@@ -47,6 +53,16 @@ class CompanyController extends AbstractController
 
         return $this->render('company/list.html.twig', [
             'companies' => $companies,
+        ]);
+    }
+
+    /**
+     * @Route("/invoice/company/{id}/edit", name="app_company_edit")
+     */
+    public function edit(Company $comapny)
+    {
+        return $this->redirectToRoute('app_company_add', [
+            'id' => $comapny->getId(),
         ]);
     }
 }

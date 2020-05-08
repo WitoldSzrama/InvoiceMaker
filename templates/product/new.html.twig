@@ -5,11 +5,10 @@
 {% block body %}
     {{ form_start(productForm) }}
         {{ form_row(productForm.name) }}
-        {{ form_widget(productForm.netValue, { 'attr':{'disabled':'disabled', 'hidden': 'hidden', 'label': ' '} }) }}
-        {{ form_widget(productForm.grossValue, { 'attr':{'disabled':'disabled', 'hidden': 'hidden', 'label': ' '} }) }}
+        {% do productForm.netValue.setRendered() %}
+        {% do productForm.grossValue.setRendered() %}
+        {% do productForm.quantity.setRendered() %}
         {{ form_row(productForm.vat) }}
-        {{ form_widget(productForm.quantity, { 'attr':{'disabled':'disabled', 'hidden': 'hidden', 'label': ' '} }) }}
-        {{ form_widget(productForm.forPeriod, { 'attr':{'disabled':'disabled', 'hidden': 'hidden', 'label': ' '} }) }}
         <button type="submit" class="btn btn-primary">Submit</button>
     {{ form_end(productForm) }}
 {% endblock %}

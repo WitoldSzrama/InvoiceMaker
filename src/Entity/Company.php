@@ -17,7 +17,7 @@ class Company extends AbstractCompany
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="forCompany")
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="forCompany", cascade={"remove"})
      */
     private $invoices;
 

@@ -55,7 +55,18 @@ function addProductForm($collectionHolder, $newLinkLi) {
 
         return false;
     });
+
+    grossToNet();
+    netToGross();
 }
+
+$('.remove-product').click(function(e) {
+    e.preventDefault();
+
+    $(this).parent().remove();
+
+    return false;
+});
 
 function createProductApi($collectionHolder, $newLinkLi)
 {
@@ -78,10 +89,43 @@ function createProductApi($collectionHolder, $newLinkLi)
                 $(liForm).find("input[name*='grossValue']" ).val(product['grossValue']);
                 $(liForm).find("input[name*='netValue']" ).val(product['netValue']);
                 $(liForm).find("input[name*='quantity']" ).val(product['quantity']);
-                $(liForm).find("input[name*='vat']" ).val(product['vat']);
+                $(liForm).find("select[name*='vat']" ).children('option:selected').val(product['vat']);
                 $(liForm).find("input[name*='forPeriod']" ).val(product['forPeriod']);
                 $(liForm).find("input[name*='id']" ).val(product['id']);
+                grossToPay();
+                netToGross();           
             })
         }
     })
 }
+
+grossToNet();
+netToGross();
+
+function grossToNet() 
+{
+     $("input[name*='grossValue']").on('keyup', function(event) {
+        let grossValue = $(this).val();
+        let vat = $(this).closest('li').find("select[name*='vat']").children('option:selected').val();
+        
+        let netValue = grossValue /(1 + vat/100);
+        netValue = netValue.toFixed(2);
+        
+        $(this).closest('li').find("input[name*='netValue']").val(netValue);
+    });
+}
+
+
+function netToGross() 
+{
+     $("input[name*='netValue']").on('keyup', function(event) {
+        let netValue = $(this).val();
+        let vat = $(this).closest('li').find("select[name*='vat']").children('option:selected').val();
+        
+        let grossValue = netValue * (1 + vat/100);
+        grossValue = grossValue.toFixed(2);
+        
+        $(this).closest('li').find("input[name*='grossValue']").val(grossValue);
+    });
+}
+

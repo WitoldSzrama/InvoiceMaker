@@ -64,6 +64,7 @@ class InvoiceType extends AbstractType
                 $products = $event->getData()['products'];
                 foreach ($products as $product) {
                     if ($product['id']) {
+                        dd($product);
                         $oldProduct = $this->productRepository->findOneBy(['id' => $product['id']]);
                         $this->em->remove($oldProduct);
                     }

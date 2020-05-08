@@ -19,11 +19,13 @@
                 data-api-product-remove="{{ path('api_product_remove') }}"
             >{{ form_row(form.existProduct) }}
             </li>
-            {% for products in form.products %}
-                <li class="list-group-item">
+            {% for product in form.products %}
+                <li class="list-group-item bg-transparent new-product-form">
+                    <a href="#" class="remove-product">x</a>
                     {{ form_errors(product) }}
                     {{ form_widget(product) }}
                 </li>
+                <br>
             {% endfor %}
         </ul>
         <button type="submit" class="btn btn-primary">Create</button>

@@ -59,6 +59,16 @@ class Invoice
         $this->products = new ArrayCollection();
     }
 
+    public function getTotal()
+    {
+        $total = 0;
+        foreach ($this->products as $product) {
+            $total += $product->getGrossValue();
+        }
+
+        return $total;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

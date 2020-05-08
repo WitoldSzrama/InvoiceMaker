@@ -32,9 +32,9 @@
                 </td>
                 <td>
                     <div class="row justify-content-start">
-                        <a href="#" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="#" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
-                        <a href="#" class="col-3 delete-button"><i class="fas fa-file-download"></i></a>
+                        <a href="{{ path('app_invoice_item_edit' , {'id':invoice.id}) }}" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="{{ path('app_invoice_item_remove' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
+                        <a href="{{ path('app_template' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="fas fa-file-download"></i></a>
                     </div>
                 </td>
             </tr>

@@ -59,16 +59,18 @@ class InvoiceController extends AbstractController
     }
 
     /**
-     * @Route("/invoice/create", name="app_invoice_add")
+     * @Route("/invoice/create/{id}", name="app_invoice_add")
      */
-    public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, EntityManagerInterface $em, Invoice $invoice = null)
+    public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, EntityManagerInterface $em, CompanyRepository $companyRepository, Invoice $invoice = null, $id = null)
     {
+        if(empty($companyRepository->getCompaniesByUser($this->getUser()))) {
+            $this->redirectToRoute('app_company_add');
+        }
         if ($invoice == null) {
             $invoice = $invoiceFactory->createInvoice($this->getUser());
         }
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid())
         {
             $em->persist($invoice);
@@ -94,4 +96,26 @@ class InvoiceController extends AbstractController
            'invoices' => $invoices,
         ]);
     }
+
+    /**
+     * @Route("/invoice/{id}/remove", name="app_invoice_item_remove")
+     */
+    public function remove(Invoice $invoice, EntityManagerInterface $em)
+    {
+        $em->remove($invoice);
+        $em->flush();
+
+        return $this->redirectToRoute('app_invoice_list');
+    }
+
+    /**
+     * @Route("/invoice/{id}/edit", name="app_invoice_item_edit")
+     */
+    public function edit(Invoice $invoice)
+    {
+        return $this->redirectToRoute('app_invoice_add', [
+            'id' => $invoice->getId(),
+        ]);
+    }
+
 }
