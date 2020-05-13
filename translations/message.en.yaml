@@ -1,6 +1,7 @@
 agreeTermsMessage: "You should accept terms."
 minNameMessage: "At least 2 characters required."
 unique: "This email is already taken please select other"
+vatError: "Value should be between 1 - 100, seperate by coma and space"
 help:
   lengthName: "Company name should be at least 2 charaters and max 100."
   password: 'Minimum six characters, at least one uppercase letter, one lowercase letter and one number'

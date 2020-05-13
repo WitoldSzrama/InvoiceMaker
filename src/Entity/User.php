@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as CustomAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -70,6 +71,7 @@ class User extends AbstractCompany implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @CustomAssert\BaseVat(message="vatError")
      */
     private $baseVat = '0, 3, 5, 7, 8, 23';
 
