@@ -8,3 +8,5 @@ register: "Zarejestruj sie"
 login: "Zaloguj sie"
 button:
   add: Dodaj
+  create: Stworz
+  update: Zaktualizuj

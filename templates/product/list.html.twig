@@ -1,33 +1,24 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ app.user.name|upper }}{% endblock %}
-
-{% block body %}
-    <div class="text-right">
-        <a class="btn btn-primary mb-2" href="{{ path('app_product_add') }}">{{ 'button.add'|trans([], 'main') }}</a>
-    </div>
-    <table class="table table-striped bg-light">
-        <thead>
-        <tr>
-            <th scope="col">{{ 'product.name'|trans([], 'labels') }}</th>
-            <th scope="col">VAT</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td> {{ product.name }} </td>
-                <td> {{ product.vat }} % </td>
-                <td>
-                    <div class="row justify-content-start">
-                        <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="{{ path('app_product_item_remove', {'id': product.id}) }}" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% extends 'defaultList.html.twig' %}
+{% block header_right %}
+    <a class="btn btn-primary mb-2" href="{{ path('app_product_add') }}">{{ 'button.add'|trans([], 'main') }}</a>
 {% endblock %}
 
+{% block table_head %}
+    <th scope="col">{{ 'product.name'|trans([], 'labels') }}</th>
+    <th scope="col">VAT</th>
+{% endblock %}
+
+{% block table_body %}
+    {% for product in products %}
+        <tr>
+            <td> {{ product.name }} </td>
+            <td> {{ product.vat }} % </td>
+            <td>
+                <div class="row justify-content-start">
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="{{ path('app_product_item_remove', {'id': product.id}) }}" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

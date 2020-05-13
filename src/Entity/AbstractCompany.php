@@ -18,7 +18,13 @@ abstract class AbstractCompany
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Email()
+     */
+    private $contactEmail;
+
+    /**
+     * @ORM\Column(type="string", length=100)
      * @Assert\Length(
      *     min="2",
      *     minMessage="message.minNameMessage",
@@ -28,22 +34,33 @@ abstract class AbstractCompany
     private $name;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", length=10, nullable=true)
+     * @Assert\Length(
+     *     min="10",
+     *     max="10" 
+     * )
      */
     private $nip;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", length=9, nullable=true)
+     * @Assert\Length(
+     *     min="9",
+     *     max="9" 
+     * )
      */
     private $regon;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=9, nullable=true)
+     * @Assert\Length(
+     *     max="9" 
+     * )
      */
     private $postCode;
 
@@ -53,18 +70,33 @@ abstract class AbstractCompany
     private $street;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Length(
+     *     max="20" 
+     * )
      */
     private $stNumber;
 
     /**
-     * @Assert\CardScheme(
-     *  schemes={"VISA"},
-     *  message="Your credit card number is invalid."
+     * @ORM\Column(type="string", length=32, nullable=true)
+     * @Assert\Length(
+     *     min="32",
+     *     max="32" 
      * )
-     * @ORM\Column(type="string", nullable=true)
      */
     private $accountNumber;
+
+    public function getContactEmail(): ?string
+    {
+        return $this->contactEmail;
+    }
+
+    public function setContactEmail(string $email): self
+    {
+        $this->contactEmail = $email;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -112,7 +144,7 @@ abstract class AbstractCompany
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
 
@@ -124,7 +156,7 @@ abstract class AbstractCompany
         return $this->postCode;
     }
 
-    public function setPostCode(string $postCode): self
+    public function setPostCode(?string $postCode): self
     {
         $this->postCode = $postCode;
 
@@ -136,7 +168,7 @@ abstract class AbstractCompany
         return $this->street;
     }
 
-    public function setStreet(string $street): self
+    public function setStreet(?string $street): self
     {
         $this->street = $street;
 
@@ -148,7 +180,7 @@ abstract class AbstractCompany
         return $this->stNumber;
     }
 
-    public function setStNumber(string $stNumber): self
+    public function setStNumber(?string $stNumber): self
     {
         $this->stNumber = $stNumber;
 

@@ -20,13 +20,14 @@ class ProductFactory
         return $product;
     }
 
-    public function getVatChoices()
+    public function getVatChoices(User $user)
     {
+        $baseVat = explode(', ', $user->getBaseVat());
         $vatArray = [];
-        foreach (self::VAT as $vat) {
+        foreach ($baseVat as $vat) {
             $vatArray[] = $vat . ' %';
         }
-        return array_combine($vatArray, self::VAT);
+        return array_combine($vatArray, $baseVat);
     }
 
 }

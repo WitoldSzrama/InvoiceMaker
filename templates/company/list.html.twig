@@ -1,33 +1,37 @@
-{% extends 'base.html.twig' %}
+{% extends 'defaultList.html.twig' %}
 
-{% block title %}{{ app.user.name|upper }}{% endblock %}
+{% block header_right %}
+    <a class="btn btn-primary mb-2" href="{{ path('app_company_add') }}">{{ 'button.add'|trans([], 'main') }}</a>
+{% endblock %}
 
-{% block body %}
-    <div class="text-right">
-        <a class="btn btn-primary mb-2" href="{{ path('app_company_add') }}">{{ 'button.add'|trans([], 'main') }}</a>
-    </div>
-    <table class="table table-striped bg-light">
-        <thead>
-            <tr>
-                <th scope="col">{{ 'company.company'|trans([], 'labels') }}</th>
-                <th scope="col">{{ 'company.nip'|trans([], 'labels')|upper }}</th>
-                <th scope="col">{{ 'company.regon'|trans([], 'labels')|upper }}</th>
-                <th class="" scope="col">{{ 'company.options'|trans([], 'labels') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for company in companies %}
-            <tr>
-                <td> {{ company.name }} </td>
-                <td> {{ company.nip }} </td>
-                <td> {{ company.regon }} </td>
-                <td>
-                    <div class="row justify-content-start">
-                        <a href="{{ path('app_company_edit', {'id' : company.id }) }}" class="col-3 edit-button"><i class="fas fa-pencil-alt"></i></a>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block table_head %} 
+    <th scope="col">{{ 'company.company'|trans([], 'labels') }}</th>
+    <th scope="col">{{ 'company.nip'|trans([], 'labels')|upper }}</th>
+    <th scope="col">{{ 'company.regon'|trans([], 'labels')|upper }}</th>
+    <th class="" scope="col">{{ 'company.options'|trans([], 'labels') }}</th>
+{% endblock %}
+
+{% block table_body %} 
+    {% for company in companies %}
+        <tr>
+            <td> {{ company.name }} </td>
+            <td> {{ company.nip }} </td>
+            <td> {{ company.regon }} </td>
+            <td>
+                <div class="row justify-content-start">
+                    <a 
+                        href="{{ path('app_company_remove', {'id' : company.id }) }}"
+                        class="col-3 edit-button"
+                        onclick=" return confirm( '{{ 'company.delete'|trans([], 'labels') }}' )" 
+                        >
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block navigation %}
+    {{ knp_pagination_render(companies) }}
 {% endblock %}

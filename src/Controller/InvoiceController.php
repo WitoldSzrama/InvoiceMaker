@@ -7,16 +7,29 @@ use App\Form\InvoiceType;
 use App\Repository\CompanyRepository;
 use App\Repository\InvoiceRepository;
 use App\Services\InvoiceFactory;
-use Doctrine\ORM\EntityManager;
+use App\Services\Pagination;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InvoiceController extends AbstractController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/invoice", name="app_invoice")
      */
@@ -50,11 +63,10 @@ class InvoiceController extends AbstractController
         // Render the HTML as PDF
         $dompdf->render();
 
+        // $dompdf->stream($invoice->getInvoiceNumber().'.pdf', array("Attachment" => false));
+
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("mypdf.pdf", [
-        ]);
-        return $this->render('invoice/template.html.twig', [
-            'invoice' => $invoice,
         ]);
     }
 
@@ -63,8 +75,10 @@ class InvoiceController extends AbstractController
      */
     public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, EntityManagerInterface $em, CompanyRepository $companyRepository, Invoice $invoice = null, $id = null)
     {
-        if(empty($companyRepository->getCompaniesByUser($this->getUser()))) {
-            $this->redirectToRoute('app_company_add');
+        if(empty($this->getUser()->getCompanies()->getValues())) {
+            $this->addFlash('noCompany', $this->translator->trans('noCompany', [], 'invoice'));
+
+            return $this->redirectToRoute('app_company_add');
         }
         if ($invoice == null) {
             $invoice = $invoiceFactory->createInvoice($this->getUser());
@@ -75,25 +89,28 @@ class InvoiceController extends AbstractController
         {
             $em->persist($invoice);
             $em->flush();
-            return $this->redirectToRoute('app_template', [
+
+            return $this->redirectToRoute('app_invoice_list', [
                 'id' => $invoice->getId(),
             ]);
         }
 
         return  $this->render('invoice/create.html.twig', [
             'form' => $form->createView(),
+            'noProducts' => empty($this->getUser()->getProducts()->getValues()),
         ]);
     }
 
     /**
-     * @Route("/invoice/list", name="app_invoice_list")
+     * @Route("/invoice/list/{id}", name="app_invoice_list")
      */
-    public function list(InvoiceRepository $invoiceRepository)
+    public function list(InvoiceRepository $invoiceRepository, Request $request, PaginatorInterface $paginator, Pagination $pagination, Invoice $invoice = null, $id = null)
     {
-        $invoices = $invoiceRepository->findAll();
+        $paginator = $pagination->getPagination($invoiceRepository, $request, $paginator, $this->getUser());
 
         return $this->render('invoice/list.html.twig', [
-           'invoices' => $invoices,
+           'invoices' => $paginator,
+           'invoice' => $invoice,
         ]);
     }
 
@@ -107,15 +124,4 @@ class InvoiceController extends AbstractController
 
         return $this->redirectToRoute('app_invoice_list');
     }
-
-    /**
-     * @Route("/invoice/{id}/edit", name="app_invoice_item_edit")
-     */
-    public function edit(Invoice $invoice)
-    {
-        return $this->redirectToRoute('app_invoice_add', [
-            'id' => $invoice->getId(),
-        ]);
-    }
-
 }

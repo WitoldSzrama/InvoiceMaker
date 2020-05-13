@@ -9,6 +9,7 @@
         body {
             padding: 100px;
             margin: 0;
+            font-size: .7em;
         }
         table {
             width: 100%;
@@ -44,15 +45,15 @@
             <td>
                 <table>
                     <tr>
-                        <td >Faktura numer:</td>
-                        <td >20/05/1/1<td/>
+                        <td >{{ 'invoice.number'|trans([], 'labels') }}:</td>
+                        <td >{{ invoice.invoiceNumber }}<td/>
                     </tr>
                     <tr>
-                        <td>Data wystawienia:</td>
+                        <td>{{ 'invoice.createdAt'|trans([], 'labels') }}:</td>
                         <td>{{ invoice.createdAt|date("m/d/Y") }}<td/>
                     </tr>
                     <tr>
-                        <td>Data sprzedazy:</td>
+                        <td>{{ 'invoice.salesDate'|trans([], 'labels') }}:</td>
                         <td>{{ invoice.createdAt|date("m/d/Y") }}<td/>
                     </tr>
                     <tr>
@@ -96,7 +97,7 @@
             <td> NIP {{ invoice.forCompany.nip }}  </td>
         </tr>
         <tr>
-            <td> Email: {{ invoice.byCompany.email }}  </td>
+            <td> Email: {{ invoice.byCompany.contactEmail }}  </td>
         </tr>
         <tr>
             <td> Nr konta: {{ invoice.byCompany.accountNumber }}  </td>

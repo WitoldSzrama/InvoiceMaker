@@ -8,3 +8,5 @@ register: "Register"
 login: "Login"
 button:
   add: Add new
+  create: Create
+  update: Update

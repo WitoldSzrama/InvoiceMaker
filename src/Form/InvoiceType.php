@@ -7,12 +7,13 @@ use App\Entity\Invoice;
 use App\Entity\Product;
 use App\Repository\CompanyRepository;
 use App\Repository\ProductRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,8 +39,17 @@ class InvoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('forCompany', null, [
-                'label' => $this->translator->trans('invoice.company', [], 'labels')
+            ->add('forCompany', EntityType::class, [
+                'class' => Company::class,
+                'required' => true,
+                'label' => $this->translator->trans('invoice.company', [], 'labels'),
+                'query_builder' => function (CompanyRepository $cr) {
+                    return $cr->getQueryBuilderByUser($this->security->getUser());
+                }
+            ])
+            ->add('salesDate', DateType::class, [
+                'widget' => 'single_text',
+                'label' => $this->translator->trans('invoice.salesDate', [], 'labels'),
             ])
             ->add('comment',null, [
                 'label' => $this->translator->trans('invoice.comment', [], 'labels')
@@ -47,27 +57,36 @@ class InvoiceType extends AbstractType
             ->add('products', CollectionType::class, [
                 'label' => $this->translator->trans('invoice.products', [], 'labels'),
                 'entry_type' => ProductType::class,
+                'entry_options' => [
+                    'required' => true,
+                ],
                 'allow_add' => true,
+                'by_reference' => false,
             ])
             ->add('existProduct', EntityType::class, [
                 'mapped' => false,
+                'required' => false,
                 'placeholder' => $this->translator->trans('invoice.products.choose', [], 'labels'),
                 'class' => Product::class,
                 'query_builder' => function (ProductRepository $pr) {
                     return $pr->queryProductByUser($this->security->getUser());
                 },
                 'label' => false,
-                'choice_label' => 'name',
+                // 'choice_label' => 'name',
                 'required' =>false,
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event){
-                $products = $event->getData()['products'];
-                foreach ($products as $product) {
-                    if ($product['id']) {
-                        dd($product);
-                        $oldProduct = $this->productRepository->findOneBy(['id' => $product['id']]);
-                        $this->em->remove($oldProduct);
+                if(array_key_exists('products', $event->getData())) {
+                    $products = $event->getData()['products'];
+                    foreach ($products as $product) {
+                        if ($oldProduct = $this->productRepository->findOneBy(['id' => $product['id']])) {
+                            $oldProduct->setUser(null);
+                        }
                     }
+                } else {
+                    $event->getForm()->get('products')->addError(
+                        new FormError($this->translator->trans('invoice.error', [], 'labels'))
+                    );
                 }
             })
         ;

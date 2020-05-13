@@ -28,8 +28,13 @@ class Product
     private $name;
 
     /**
+     * @Assert\Length(
+     *  min = 1,
+     *  minMessage = "Your first name must be at least {{ limit }} characters long",
+     *  allowEmptyString = false
+     * )
      * @Groups("apiProduct")
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $quantity;
 
@@ -63,7 +68,7 @@ class Product
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Invoice", mappedBy="products", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Invoice", mappedBy="products", cascade={"persist", "remove"})
      */
     private $invoices;
 
@@ -198,6 +203,6 @@ class Product
 
     public function __toString()
     {
-        return $this->name . ' NET:' . $this->netValue .'  VAT:' .$this->vat . ' QUANTITY:' . $this->quantity;
+        return $this->name . ' | NET: ' . $this->netValue .' | VAT: ' .$this->vat . '% | ' . $this->quantity;
     }
 }

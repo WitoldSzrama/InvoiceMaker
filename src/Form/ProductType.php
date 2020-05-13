@@ -54,7 +54,7 @@ class ProductType extends AbstractType
                 'currency' => $this->productFactory::CURRENCY,
             ])
             ->add('vat', ChoiceType::class, [
-                'choices' => $this->productFactory->getVatChoices(),
+                'choices' => $this->productFactory->getVatChoices($this->security->getUser()),
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event){
                 $product = $event->getData();

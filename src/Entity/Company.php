@@ -17,9 +17,14 @@ class Company extends AbstractCompany
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="forCompany", cascade={"remove"})
+     * @ORM\OneTomany(targetEntity="App\Entity\Invoice", mappedBy="forCompany", cascade={"remove"})
      */
     private $invoices;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="byCompany", cascade={"remove"})
+     */
+    private $userInvoices;
 
     public function __construct()
     {
@@ -34,6 +39,24 @@ class Company extends AbstractCompany
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Invoice[]
+     */
+    public function getUserInvoices(): Collection
+    {
+        return $this->userInvoices;
+    }
+
+    public function addUserInvoice(Invoice $invoice): self
+    {
+        if (!$this->userInvoices->contains($invoice)) {
+            $this->userInvoices[] = $invoice;
+            $invoice->setByCompany($this);
+        }
 
         return $this;
     }

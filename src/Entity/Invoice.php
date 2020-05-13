@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,8 +21,7 @@ class Invoice
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="invoices")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="userInvoices", cascade={"persist"})
      */
     private $byCompany;
 
@@ -54,9 +55,20 @@ class Invoice
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $salesDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->salesDate = new DateTime();
     }
 
     public function getTotal()
@@ -68,18 +80,23 @@ class Invoice
 
         return $total;
     }
+    
+    public function getCurrency()
+    {
+        return $this->products[0]->getCurrency();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getByCompany(): ?User
+    public function getByCompany(): ?Company
     {
         return $this->byCompany;
     }
 
-    public function setByCompany(?User $byCompany): self
+    public function setByCompany(?Company $byCompany): self
     {
         $this->byCompany = $byCompany;
 
@@ -181,6 +198,30 @@ class Invoice
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
         }
+
+        return $this;
+    }
+
+    public function getSalesDate(): ?\DateTimeInterface
+    {
+        return $this->salesDate;
+    }
+
+    public function setSalesDate(?\DateTimeInterface $salesDate): self
+    {
+        $this->salesDate = $salesDate;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

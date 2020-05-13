@@ -2,6 +2,12 @@ password: Haslo
 passwordRepeat: Powtorz haslo
 agreeTerms: Akceptuje regulamin
 company:
+  user:
+    baseNumber: Numer startowy faktury
+    baseVat: Bazowe stawki Vat %
+    invoiceNumberTemplate: Wyglad numeru faktury
+    baseCurrency: Podstawowa waluta
+  delete: Czy jestes pewien ?
   company: Firma
   nip: Nip
   regon: Regon
@@ -13,6 +19,10 @@ company:
   streetNumber: Numer ulicy
   accountNumber: Numer konta
 invoice:
+  salesDate: Data sprzedazy
+  info: Faktura o podanym numerze zostala utworzona.
+  add: Dodaj nowy produkt/usluge
+  error: Przynajmniej jeden produkt/usluga wymagany
   createdAt: Utworzona
   number: Numer faktury
   forCompany: Nabywca
@@ -23,7 +33,7 @@ invoice:
   settings: Ustawienia
   companies: Firmy
   products: Produkty/Uslugi
-  products.choose: Wybierz produkt z listy
+  products.choose: Wybierz produkt/usluge z listy
   itemList: Zapisane pozycje
   comment: Komentarz
   company: Nabywca
@@ -33,3 +43,5 @@ product:
   netValue: Cena netto
   grossValue: Cena Brutto
   forPeriod: Za okres
+button:
+  download: Sciagnij

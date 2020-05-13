@@ -4,3 +4,5 @@ unique: "Ten mail juz istnieje w bazie, prosze wybrac inny"
 help:
   lengthName: "Nazwa firmy powinna byc nie krotsza niz 2 znaki i nie dluzsza niz 100."
   password: 'Minimum 6 znakow, przynajmniej jedna duza litera, jedna mala oraz jedna cyfra.'
+  invoiceNumberTemplate: $Y/$M/$N wygeneruje przykladowy numer faktury 2020/05/7
+  baseCurrency: Prosze o podanie sybolu waluty na przyklad PLN, GBP

@@ -2,6 +2,12 @@ password: Password
 passwordRepeat: Repeat password
 agreeTerms: Agree terms
 company:
+  user:
+    baseNumber: Invoice base number
+    baseVat: Bazowe Vat %
+    invoiceNumberTemplate: Invoice number template
+    baseCurrency: Base currency
+  delete: Are you sure?
   company: Company
   options: Options
   name: Name
@@ -11,13 +17,17 @@ company:
   streetNumber: Street number
   accountNumber: Account number
 invoice:
+  salesDate: Sales date
+  info: Invoice was created succesfully
+  add: Add new product/service
+  error: At least one product/service required
   createdAt: Created
   number: Invoice number
   forCompany: For
   value: Value
   overdue: Overdue
   products: Products/Services
-  products.choose: Choose product from list
+  products.choose: Choose product/service from list
   list: Invoices list
   create: Create invoice
   settings: Settings
@@ -31,3 +41,5 @@ product:
   netValue: Net Value
   grossValue: Gross value
   forPeriod: For period
+button:
+  download: Download

@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Utilities\InvoiceMenagerutilities;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -16,8 +15,6 @@ use App\Utilities\InvoiceMenagerutilities;
  */
 class User extends AbstractCompany implements UserInterface
 {
-    const REGEX = '/'.InvoiceMenagerutilities::PASSWORD_REGEX.'/';
-
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
@@ -33,7 +30,6 @@ class User extends AbstractCompany implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\Regex(pattern=User::REGEX)
      */
     private $password;
 
@@ -48,7 +44,7 @@ class User extends AbstractCompany implements UserInterface
     private $companies;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="byCompany", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="user", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $invoices;
 
@@ -57,11 +53,32 @@ class User extends AbstractCompany implements UserInterface
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $baseNumber = 1;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $baseCurrency = 'PLN';
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $invoiceNumberTemplate = '$Y/$N';
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $baseVat = '0, 3, 5, 7, 8, 23';
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
         $this->invoices = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->contactEmail = $this->email;
     }
 
     public function getEmail(): ?string
@@ -192,7 +209,6 @@ class User extends AbstractCompany implements UserInterface
     {
         if (!$this->invoices->contains($invoice)) {
             $this->invoices[] = $invoice;
-            $invoice->setByCompany($this);
         }
 
         return $this;
@@ -242,4 +258,51 @@ class User extends AbstractCompany implements UserInterface
         return $this;
     }
 
+    public function getBaseNumber(): ?int
+    {
+        return $this->baseNumber;
+    }
+
+    public function setBaseNumber(?int $baseNumber): self
+    {
+        $this->baseNumber = $baseNumber;
+
+        return $this;
+    }
+
+    public function getBaseCurrency(): ?string
+    {
+        return $this->baseCurrency;
+    }
+
+    public function setBaseCurrency(?string $baseCurrency): self
+    {
+        $this->baseCurrency = $baseCurrency;
+
+        return $this;
+    }
+
+    public function getInvoiceNumberTemplate(): ?string
+    {
+        return $this->invoiceNumberTemplate;
+    }
+
+    public function setInvoiceNumberTemplate(?string $invoiceNumberTemplate): self
+    {
+        $this->invoiceNumberTemplate = $invoiceNumberTemplate;
+
+        return $this;
+    }
+
+    public function getBaseVat(): ?string
+    {
+        return $this->baseVat;
+    }
+
+    public function setBaseVat(?string $baseVat): self
+    {
+        $this->baseVat = $baseVat;
+
+        return $this;
+    }
 }

@@ -3,8 +3,16 @@
 {% block title %}{{ app.user.name|upper }}{% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('noCompany') %}
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+    {% endfor %}
     {{ form_start(companyForm) }}
         {{ form_widget(companyForm) }}
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="text-right sticky-position">
+            <button type="submit" class="btn btn-primary ">{{ 'button.create'|trans([], 'main')|upper }}</button>
+        </div>
+        <input type="hidden" name="referer" value="{{app.request.headers.get('referer')}}"/>
     {{ form_end(companyForm) }}
 {% endblock %}

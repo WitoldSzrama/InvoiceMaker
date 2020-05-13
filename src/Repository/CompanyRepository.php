@@ -13,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Company[]    findAll()
  * @method Company[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CompanyRepository extends ServiceEntityRepository
+class CompanyRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -25,13 +25,8 @@ class CompanyRepository extends ServiceEntityRepository
      */
     public function getCompaniesByUser(User $user)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.user = :user')
-            ->setParameter('user', $user)
-            ->orderBy('c.name', 'DESC')
-            ->getQuery()
-            ->getResult()
-            ;
+        $qb = $this->getQueryByUser($user, 'c');
+        return $qb->getResult();
     }
 
     // /**

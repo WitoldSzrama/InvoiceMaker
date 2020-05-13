@@ -4,21 +4,27 @@
 
 {% block body %}
     {{ form_start(form) }}
+
+        {{ form_errors(form) }}
         {{ form_row(form.forCompany) }}
+        {{ form_row(form.salesDate) }}
         {{ form_row(form.comment) }}
 
         {{ form_label(form.products) }}
-        {{ form_errors(form.products) }}
         {% if form.products|length < 1 %}
             {% do form.products.setRendered() %}
         {% endif %}
         <ul class="products list-group list-group-flush" data-prototype="{{ form_widget(form.products.vars.prototype)|e('html_attr') }}">
-            <li
-                class="list-group-item bg-transparent"
-                data-api-product="{{ path('api_product') }}"
-                data-api-product-remove="{{ path('api_product_remove') }}"
-            >{{ form_row(form.existProduct) }}
-            </li>
+            {% if noProducts %}
+                {% do form.existProduct.setRendered() %}
+            {% else %}
+                <li
+                    class="list-group-item bg-transparent"
+                    data-api-product="{{ path('api_product') }}"
+                    data-api-product-remove="{{ path('api_product_remove') }}"
+                >{{ form_row(form.existProduct) }}
+                </li>
+            {% endif %}
             {% for product in form.products %}
                 <li class="list-group-item bg-transparent new-product-form">
                     <a href="#" class="remove-product">x</a>
@@ -28,6 +34,10 @@
                 <br>
             {% endfor %}
         </ul>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <div class="text-right sticky-position">
+                        <button type="submit" class="btn btn-primary ">{{ 'button.create'|trans([], 'main')|upper }}</button>
+        </div>
+
     {{ form_end(form) }}
+    <a href="#" id="add_new_product" class="btn btn-info btn-sm">{{ 'invoice.add'|trans([], 'labels')|upper }}</a>
 {% endblock %}

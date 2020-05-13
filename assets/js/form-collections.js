@@ -1,6 +1,7 @@
 const $ = require('jquery');
 // setup an "add a tag" link
-var $addProductLink = $('<a href="#" class="add_tag_link badge badge-pill badge-inf">Add new</a>');
+
+var $addProductLink = $('#add_new_product');
 var $newLinkLi = $('<li class="list-group-item bg-transparent"></li>').append($addProductLink);
 
 $(document).ready(
@@ -128,4 +129,16 @@ function netToGross()
         $(this).closest('li').find("input[name*='grossValue']").val(grossValue);
     });
 }
+
+$(document).ready(function(){
+    $("#myModal").modal('show');
+});
+
+$("input[name*='accountNumber']").on('keypress', function(event) {
+    let value = $(this).val();
+    accountSpacesAfter = [2, 7, 12, 17, 22, 27];
+    if (accountSpacesAfter.includes(value.length)) {
+        $(this).val(value + ' ');
+    }
+});
 
