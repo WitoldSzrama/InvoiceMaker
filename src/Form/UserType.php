@@ -3,10 +3,9 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -14,23 +13,28 @@ class UserType extends AbstractType
 {
 
     private $translator;
+    private $security;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, Security $security)
     {
         $this->translator = $translator;
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $hasInvoices = !empty($this->security->getUser()->getInvoices()->getValues());
         $builder
             ->add('name', null, [
                 'label' => $this->translator->trans('company.name', [], 'labels')
             ])
             ->add('nip', null, [
-                'label' => $this->translator->trans('company.nip', [], 'labels')
+                'label' => $this->translator->trans('company.nip', [], 'labels'),
+                'attr' => ['min' => 1000000000, 'max' => 9999999999]
                 ])
             ->add('regon', null, [
-                'label' => $this->translator->trans('company.regon', [], 'labels')
+                'label' => $this->translator->trans('company.regon', [], 'labels'),
+                'attr' => ['min' => 1000000, 'max' => 99999999999999]
             ])
             ->add('city', null, [
                 'label' => $this->translator->trans('company.city', [], 'labels')
@@ -45,11 +49,17 @@ class UserType extends AbstractType
                 'label' => $this->translator->trans('company.streetNumber', [], 'labels')
             ])
             ->add('accountNumber', null, [
-                'label' => $this->translator->trans('company.accountNumber', [], 'labels')
+                'label' => $this->translator->trans('company.accountNumber', [], 'labels'),
+                'attr' => ['min' => 0]
+
             ])
             ->add('baseNumber', null, [
-                'label' => $this->translator->trans('company.user.baseNumber', [], 'labels'),
+                'label' => $hasInvoices ? !$hasInvoices : $this->translator->trans('company.user.baseNumber', [], 'labels'),
                 'required' => false,
+                'attr' => [
+                    'hidden' => $hasInvoices,
+                    'disable' => $hasInvoices
+                    ]
             ])
             ->add('invoiceNumberTemplate', null, [
                 'label' => $this->translator->trans('company.user.invoiceNumberTemplate', [], 'labels'),

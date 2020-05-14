@@ -14,7 +14,7 @@
         table {
             width: 100%;
         }
-        .table-main, .table-logo{
+        .table-main, .table-logo, .table-footer{
             text-align: center;
         }
         .table-logo {
@@ -33,21 +33,18 @@
         .table-main tr:nth-child(even) {
             background-color: #dddddd;
         }
-
-        .table-footer td {
-            text-align: end;
+        .align-left{
+            text-align: left;
         }
+
 
     </style>
 <body>
+    <h1>{{ 'invoice.number'|trans([], 'labels') }}: {{ invoice.invoiceNumber }}</h1>
     <table class="table-header">
         <tr>
             <td>
                 <table>
-                    <tr>
-                        <td >{{ 'invoice.number'|trans([], 'labels') }}:</td>
-                        <td >{{ invoice.invoiceNumber }}<td/>
-                    </tr>
                     <tr>
                         <td>{{ 'invoice.createdAt'|trans([], 'labels') }}:</td>
                         <td>{{ invoice.createdAt|date("m/d/Y") }}<td/>
@@ -69,11 +66,11 @@
     </table>
 
     <hr>
-
+    <br>
     <table>
         <tr>
-            <th>Sprzedawca</th>
-            <th>Nabywca</th>
+            <th class="align-left">{{ 'template.seller'|trans([], 'labels')|capitalize }}:</th>
+            <th class="align-left">{{ 'template.buyer'|trans([], 'labels')|capitalize }}:</th>
         </tr>
         <tr>
             <td> {{ invoice.byCompany }} </td>
@@ -93,45 +90,66 @@
             </td>
         </tr>
         <tr>
-            <td> NIP {{ invoice.byCompany.nip }}  </td>
-            <td> NIP {{ invoice.forCompany.nip }}  </td>
+            <td>
+                {% if invoice.byCompany.nip is not empty%}
+                    NIP: {{ invoice.byCompany.nip }}
+                {% endif %}
+            </td>
+            <td>
+                {% if invoice.forCompany.nip is not empty%}
+                    NIP: {{ invoice.forCompany.nip }}
+                {% endif %}
+            </td>
         </tr>
         <tr>
-            <td> Email: {{ invoice.byCompany.contactEmail }}  </td>
+            <td>
+                {% if invoice.byCompany.contactEmail is not empty%}
+                    Email: {{ invoice.byCompany.contactEmail }}
+                {% endif %}
+            </td>
         </tr>
         <tr>
-            <td> Nr konta: {{ invoice.byCompany.accountNumber }}  </td>
+            <td>
+                {% if invoice.byCompany.accountNumber is not empty%}
+                    {{ 'template.accountNumber'|trans([], 'labels') }}: 
+                    {{ invoice.byCompany.accountNumber }}
+                {% endif %}
+            </td>
         </tr>
     </table>
 
+    <br>
+
     <table class="table-main">
         <tr>
-            <th class="product-name-table">Nazwa towaru/ uslugi</th>
-            <th>Ilosc</th>
-            <th>Wartosc netto</th>
-            <th>Vat</th>
-            <th>Wartosc brutto</th>
+            <th class="product-name-table">{{ 'template.productService'|trans([], 'labels')|upper }}</th>
+            <th>{{ 'template.quantity'|trans([], 'labels')|upper }}</th>
+            <th>{{ 'template.netPrice'|trans([], 'labels')|upper }}</th>
+            <th>{{ 'template.netValue'|trans([], 'labels')|upper }}</th>
+            <th>{{ 'template.vat'|trans([], 'labels')|upper }}</th>
+            <th>{{ 'template.grossValue'|trans([], 'labels')|upper }}</th>
         </tr>
         {% for product in invoice.products %}
             <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.netValue }} {{ product.currency }}</td>
+                <td>{{ (product.netValue * product.quantity)|number_format(2) }} {{ product.currency }}</td>
                 <td>{{ product.vat }} %</td>
-                <td>{{ product.grossValue }} {{ product.currency }}</td>
+                <td>{{ (product.grossValue * product.quantity)|number_format(2)  }} {{ product.currency }}</td>
             </tr>
         {% endfor %}
     </table>
-
+    <br>
     <hr>
 
     <table class="table-footer">
         <tr>
             <td class="product-name-table"></td>
-            <td></td>
-            <td></td>
-            <td>Sum</td>
-            <td>{{ invoice.getTotal }}</td>
+            <td>{{ 'template.netTotal'|trans([], 'labels')|capitalize }}:</td>
+            <td><b>{{ invoice.netTotal|number_format(2) }} {{ invoice.products[0].currency }}</b></td>
+            <td>{{ 'template.grossTotal'|trans([], 'labels')|capitalize }}:</td>
+            <td><b>{{ invoice.getTotal|number_format(2) }} {{ invoice.products[0].currency }}</b></td>
         </tr>
     </table>
     <p>{{ invoice.comment }}</p>

@@ -33,7 +33,7 @@ class InvoiceFactory
         $year = $invoice->getCreatedAt()->format('Y');
         $month = $invoice->getCreatedAt()->format('m');
 
-        return $this->createInvoiceNumberFromTemplate($user->getInvoiceNumberTemplate(), $number, $year);
+        return $this->createInvoiceNumberFromTemplate($user->getInvoiceNumberTemplate(), $number, $year, $month);
     }
 
 
@@ -53,11 +53,11 @@ class InvoiceFactory
         return $company;
     }
 
-    private function createInvoiceNumberFromTemplate(string $template,string $number,string $year): string
+    private function createInvoiceNumberFromTemplate(string $template,string $number,string $year, string $month): string
     {
         
         $invoiceNumber = str_replace('$Y', $year, $template);
-        $invoiceNumber = str_replace('$M', $year, $invoiceNumber);
+        $invoiceNumber = str_replace('$M', $month, $invoiceNumber);
         $invoiceNumber = str_replace('$N', $number, $invoiceNumber);
 
         return $invoiceNumber;

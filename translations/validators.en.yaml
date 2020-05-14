@@ -1,0 +1,5 @@
+mail:
+  unique: This email address is already used
+vatError: "Value should be between 1 - 100, seperate by coma and space"
+accountError: Account number is not valid
+templateNumberError: "'$N' required inside template"

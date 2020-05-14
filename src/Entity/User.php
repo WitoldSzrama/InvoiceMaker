@@ -12,7 +12,7 @@ use App\Validator as CustomAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="message.unique")
+ * @UniqueEntity(fields={"email"}, message="mail.unique")
  */
 class User extends AbstractCompany implements UserInterface
 {
@@ -56,6 +56,9 @@ class User extends AbstractCompany implements UserInterface
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Length(
+     *     min="0",
+     * )
      */
     private $baseNumber = 1;
 
@@ -66,6 +69,7 @@ class User extends AbstractCompany implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @CustomAssert\InvoiceNumberTemplate(message="templateNumberError")
      */
     private $invoiceNumberTemplate = '$Y/$N';
 

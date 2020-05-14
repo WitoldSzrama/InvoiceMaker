@@ -45,15 +45,6 @@ class RegistrationFormType extends AbstractType
                 ],
                 'second_options' => ['label' => $this->translator->trans('passwordRepeat', [], 'labels')],
             ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'label' => $this->translator->trans('agreeTerms', [], 'labels'),
-                'constraints' => [
-                    new IsTrue([
-                        'message' => $this->translator->trans('agreeTermsMessage', [], 'message'),
-                    ]),
-                ],
-            ])
         ;
     }
 

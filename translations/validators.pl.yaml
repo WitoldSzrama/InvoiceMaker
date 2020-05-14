@@ -1,0 +1,5 @@
+mail:
+  unique: Podany adres email juz istnieje
+vatError: "Wartosc powinna byc w przedziale od 1 do 100 oddzielone przecinkiem i spacja"
+accountError: Podany numer konta jest nieprawidlowy
+templateNumberError: "Wyrazenie '$N' wymagane"

@@ -23,7 +23,6 @@ class BaseVatValidator extends ConstraintValidator
         if($validate) {
             $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $validate)
-            ->setTranslationDomain('message')
             ->addViolation();
         }
     }

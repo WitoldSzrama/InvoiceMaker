@@ -59,6 +59,7 @@ function addProductForm($collectionHolder, $newLinkLi) {
 
     grossToNet();
     netToGross();
+    onVatChange();
 }
 
 $('.remove-product').click(function(e) {
@@ -90,11 +91,10 @@ function createProductApi($collectionHolder, $newLinkLi)
                 $(liForm).find("input[name*='grossValue']" ).val(product['grossValue']);
                 $(liForm).find("input[name*='netValue']" ).val(product['netValue']);
                 $(liForm).find("input[name*='quantity']" ).val(product['quantity']);
-                $(liForm).find("select[name*='vat']" ).children('option:selected').val(product['vat']);
+                $(liForm).find("select[name*='vat'] option[value=" + product['vat'] + ']').attr('selected', 'selected');
                 $(liForm).find("input[name*='forPeriod']" ).val(product['forPeriod']);
-                $(liForm).find("input[name*='id']" ).val(product['id']);
-                grossToPay();
-                netToGross();           
+                $(liForm).find("input[name*='id']" ).val(product['id']); 
+                onVatChange()
             })
         }
     })
@@ -102,10 +102,11 @@ function createProductApi($collectionHolder, $newLinkLi)
 
 grossToNet();
 netToGross();
+onVatChange();
 
 function grossToNet() 
 {
-     $("input[name*='grossValue']").on('keyup', function(event) {
+     $("input[name*='grossValue']").on('change keypress', function(event) {
         let grossValue = $(this).val();
         let vat = $(this).closest('li').find("select[name*='vat']").children('option:selected').val();
         
@@ -116,19 +117,29 @@ function grossToNet()
     });
 }
 
+function onVatChange()
+{
+    $("select[name*='vat']").on('change', function($event) {
+        let newVat = $($event.currentTarget).children('option:selected').val();
+        let netValue = $($event.currentTarget).closest('li').find("input[name*='netValue']").val();
+        let grossValue = netValue * (1 + newVat/100);
+        grossValue = grossValue.toFixed(2);
+        $($event.currentTarget).closest('li').find("input[name*='grossValue']").val(grossValue)
+    })
+}
 
 function netToGross() 
 {
-     $("input[name*='netValue']").on('keyup', function(event) {
+     $("input[name*='netValue']").on('change keypress', function(event) {
         let netValue = $(this).val();
         let vat = $(this).closest('li').find("select[name*='vat']").children('option:selected').val();
-        
         let grossValue = netValue * (1 + vat/100);
         grossValue = grossValue.toFixed(2);
         
         $(this).closest('li').find("input[name*='grossValue']").val(grossValue);
     });
 }
+
 
 $(document).ready(function(){
     $("#myModal").modal('show');

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as CustomAssert;
 
 /**
  * @ORM\MappedSuperclass()
@@ -45,8 +46,8 @@ abstract class AbstractCompany
     /**
      * @ORM\Column(type="integer", length=9, nullable=true)
      * @Assert\Length(
-     *     min="9",
-     *     max="9" 
+     *     min="7",
+     *     max="14" 
      * )
      */
     private $regon;
@@ -79,6 +80,7 @@ abstract class AbstractCompany
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
+     * @CustomAssert\AccountNumber()
      * @Assert\Length(
      *     min="32",
      *     max="32" 

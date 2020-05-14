@@ -4,9 +4,10 @@ agreeTerms: Akceptuje regulamin
 company:
   user:
     baseNumber: Numer startowy faktury
-    baseVat: Bazowe stawki Vat %
+    baseVat: Bazowe stawki Vat
     invoiceNumberTemplate: Wyglad numeru faktury
     baseCurrency: Podstawowa waluta
+    firstLoginFlash: Prosze uzupelnic podstawowe informacje o firmie oraz dane do szkieletu faktury
   delete: Czy jestes pewien ?
   company: Firma
   nip: Nip
@@ -19,12 +20,14 @@ company:
   streetNumber: Numer ulicy
   accountNumber: Numer konta
 invoice:
+  netSum: Wartosc netto
+  grossSum: Wartosc brutto
   salesDate: Data sprzedazy
   info: Faktura o podanym numerze zostala utworzona.
   add: Dodaj nowy produkt/usluge
   error: Przynajmniej jeden produkt/usluga wymagany
   createdAt: Utworzona
-  number: Numer faktury
+  number: Faktura numer
   forCompany: Nabywca
   value: Wartosc
   overdue: Termin przekroczony
@@ -40,8 +43,17 @@ invoice:
 product:
   name: Nazwa
   quantity: Ilosc
-  netValue: Cena netto
-  grossValue: Cena Brutto
+  netValue: Cena jednostkowa netto
+  grossValue: Cena jednostkowa Brutto
   forPeriod: Za okres
 button:
   download: Sciagnij
+template:
+  accountNumber: Numer Konta
+  productService: Nazwa towaru/uslugi
+  quantity: Ilosc
+  netValue: Wartosc netto
+  grossValue: Wartosc brutto
+  netPrice: Cena netto
+  seller: Nabywca
+  buyer: Sprzedawca

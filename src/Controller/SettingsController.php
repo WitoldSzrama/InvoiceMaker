@@ -25,7 +25,6 @@ class SettingsController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('app_invoice');
-
         }
 
         return $this->render('settings/index.html.twig', [

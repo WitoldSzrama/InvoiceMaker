@@ -75,7 +75,17 @@ class Invoice
     {
         $total = 0;
         foreach ($this->products as $product) {
-            $total += $product->getGrossValue();
+            $total += $product->getGrossValue() * $product->getQuantity();
+        }
+
+        return $total;
+    }
+
+    public function getNetTotal()
+    {
+        $total = 0;
+        foreach ($this->products as $product) {
+            $total += $product->getNetValue() * $product->getQuantity();
         }
 
         return $total;

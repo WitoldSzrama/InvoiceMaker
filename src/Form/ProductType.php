@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Services\ProductFactory;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -58,9 +57,8 @@ class ProductType extends AbstractType
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event){
                 $product = $event->getData();
-                $user = $this->user->findOneBy(['id' => $this->security->getUser()->getId()]);
                 $product->setUser($this->security->getUser());
-                $product->setCurrency($this->productFactory::CURRENCY);
+                $product->setCurrency($this->security->getUser()->getBaseCurrency());
             })
         ;
     }

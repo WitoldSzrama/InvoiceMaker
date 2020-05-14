@@ -14,9 +14,10 @@
                     href="{% if app.user %} {{ path('app_invoice')}} {% else %} {{ path('main') }} {% endif %}"
             ><img src="{{ asset('images/invoice.png') }}" width="50px" alt=""></a>
             <div>
-                <p class="d-inline bg-secondary btn btn-light text-white">{{ 'language'|trans([], 'main') }}</p>
+                <p class="d-inline bg-secondary btn btn-light text-white default-cursor">{{ 'language'|trans([], 'main') }}</p>
                 <a class="btn btn-sm btn-light" href="{{ path('pl') }}" type="button">pl</a>
                 <a class="btn btn-sm btn-light" href="{{ path('en') }}" type="button">en</a>
+                <a class="ml-2 btn btn-sm btn-light" href="{{ path('app_logout') }}" type="button">{{ 'button.logout'|trans([], 'main') }}</a>
             </div>
         </nav>
         <div class="container">

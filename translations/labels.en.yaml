@@ -4,9 +4,10 @@ agreeTerms: Agree terms
 company:
   user:
     baseNumber: Invoice base number
-    baseVat: Bazowe Vat %
+    baseVat: Base Vat %
     invoiceNumberTemplate: Invoice number template
     baseCurrency: Base currency
+    firstLoginFlash: Please set basic informations about your comapny and invoice template
   delete: Are you sure?
   company: Company
   options: Options
@@ -17,6 +18,8 @@ company:
   streetNumber: Street number
   accountNumber: Account number
 invoice:
+  netSum: Net tottal
+  grossSum: Total
   salesDate: Sales date
   info: Invoice was created succesfully
   add: Add new product/service
@@ -43,3 +46,15 @@ product:
   forPeriod: For period
 button:
   download: Download
+template:
+  accountNumber: Account number
+  productService: Product/Service
+  quantity: Quantity
+  netValue: Net value
+  grossValue: Gross value
+  vat: Vat
+  netTotal: Razem netto
+  grossTotal: Razem brutto
+  netPrice: Net price
+  seller: Seller
+  buyer: Buyer
