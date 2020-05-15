@@ -46,8 +46,6 @@ class InvoiceController extends AbstractController
 
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setDpi(150);
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
@@ -57,8 +55,6 @@ class InvoiceController extends AbstractController
         ]);
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
 
         // Render the HTML as PDF
         $dompdf->render();
