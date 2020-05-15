@@ -63,11 +63,7 @@ class InvoiceController extends AbstractController
         // Render the HTML as PDF
         $dompdf->render();
 
-        // $dompdf->stream($invoice->getInvoiceNumber().'.pdf', array("Attachment" => false));
-
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
-        ]);
+        $dompdf->stream($invoice->getInvoiceNumber().'.pdf', array("Attachment" => false));
     }
 
     /**
