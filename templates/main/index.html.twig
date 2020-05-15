@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}{{ 'title'|trans([], 'main') }}{% endblock %}
 
 {% block body %}
         <h1>{{ 'title'|trans([], 'main') }}</h1>
