@@ -4,14 +4,14 @@ namespace App\Services;
 
 use App\Entity\Company;
 use App\Entity\Invoice;
-use App\Entity\User;
+use App\Entity\Users;
 use PhpParser\Node\Expr\Cast\String_;
 
 class InvoiceFactory
 {
     const PERIOD = 14;
 
-    public function createInvoice(User $user)
+    public function createInvoice(Users $user)
     {
         $invoice = new Invoice();
         $invoice->setCreatedAt(new \DateTime());
@@ -23,7 +23,7 @@ class InvoiceFactory
         return $invoice;
     }
 
-    private function createInvoiceNumber(User $user, Invoice $invoice)
+    private function createInvoiceNumber(Users $user, Invoice $invoice)
     {
         if(count($user->getInvoices()) === 0){
             $number = $user->getBaseNumber();
@@ -37,7 +37,7 @@ class InvoiceFactory
     }
 
 
-    public function createCompanyFromUser(User $user,Invoice $invoice)
+    public function createCompanyFromUser(Users $user,Invoice $invoice)
     {
         $company = new Company();
         $company->setContactEmail($user->getEmail());

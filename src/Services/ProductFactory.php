@@ -5,13 +5,13 @@ namespace App\Services;
 
 
 use App\Entity\Product;
-use App\Entity\User;
+use App\Entity\Users;
 
 class ProductFactory
 {
     const CURRENCY = 'PLN';
     const VAT = [5 ,7 ,12 ,15 ,17, 23];
-    public function createProduct(User $user)
+    public function createProduct(Users $user)
     {
         $product = new Product();
         $product->setCurrency(self::CURRENCY);
@@ -20,7 +20,7 @@ class ProductFactory
         return $product;
     }
 
-    public function getVatChoices(User $user)
+    public function getVatChoices(Users $user)
     {
         $baseVat = explode(', ', $user->getBaseVat());
         $vatArray = [];

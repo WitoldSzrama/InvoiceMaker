@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use App\Entity\User;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,7 +20,7 @@ class ProductRepository extends AbstractRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function queryProductByUser(User $user)
+    public function queryProductByUser(Users $user)
     {
         return $this->createQueryBuilder('p')
         ->andWhere('p.user = :user')
@@ -33,7 +33,7 @@ class ProductRepository extends AbstractRepository
     /**
      * @return Product[]
      */
-    public function getProductsByUser(User $user)
+    public function getProductsByUser(Users $user)
     {
         $qb = $this->queryProductByUser($user);
 

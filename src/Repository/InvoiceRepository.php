@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Invoice;
-use App\Entity\User;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,7 +20,7 @@ class InvoiceRepository extends AbstractRepository
         parent::__construct($registry, Invoice::class);
     }
     
-    public function queryForAllBelongsToUser(User $user)
+    public function queryForAllBelongsToUser(Users $user)
     {
 
     }

@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Entity\User;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class Pagination
 {
-    public function getPagination(ServiceEntityRepository $repository, Request $request, PaginatorInterface $paginator, User $user)
+    public function getPagination(ServiceEntityRepository $repository, Request $request, PaginatorInterface $paginator, Users $user)
     {
         $query = $repository->getQueryByUser($user);
 

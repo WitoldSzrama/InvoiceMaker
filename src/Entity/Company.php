@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Company extends AbstractCompany
 {
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="companies")
      */
     private $user;
 
@@ -31,12 +31,12 @@ class Company extends AbstractCompany
         $this->invoices = new ArrayCollection();
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?Users
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?Users $user): self
     {
         $this->user = $user;
 

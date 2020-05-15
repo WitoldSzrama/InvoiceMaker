@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Product;
-use App\Entity\User;
+use App\Entity\Users;
 use App\Repository\UserRepository;
 use App\Services\ProductFactory;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;

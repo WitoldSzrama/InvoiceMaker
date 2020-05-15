@@ -14,7 +14,7 @@ use App\Validator as CustomAssert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="mail.unique")
  */
-class User extends AbstractCompany implements UserInterface
+class Users extends AbstractCompany implements UserInterface
 {
     /**
      * @ORM\Column(type="string", length=180, unique=true)

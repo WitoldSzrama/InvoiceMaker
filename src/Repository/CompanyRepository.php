@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Company;
-use App\Entity\User;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,7 +23,7 @@ class CompanyRepository extends AbstractRepository
     /**
      * @return Company[]
      */
-    public function getCompaniesByUser(User $user)
+    public function getCompaniesByUser(Users $user)
     {
         $qb = $this->getQueryByUser($user, 'c');
         return $qb->getResult();
