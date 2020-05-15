@@ -1,6 +1,7 @@
 password: Haslo
 passwordRepeat: Powtorz haslo
 agreeTerms: Akceptuje regulamin
+goBackList: Wroc do listy
 company:
   user:
     baseNumber: Numer startowy faktury
@@ -11,6 +12,7 @@ company:
   delete: Czy jestes pewien ?
   company: Firma
   nip: Nip
+  address: Adres
   regon: Regon
   options: Opcje
   name: Nazwa

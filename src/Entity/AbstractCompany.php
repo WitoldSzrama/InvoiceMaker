@@ -19,17 +19,17 @@ abstract class AbstractCompany
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Email()
      */
     private $contactEmail;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=40)
      * @Assert\Length(
      *     min="2",
      *     minMessage="message.minNameMessage",
-     *     max="100"
+     *     max="40"
      * )
      */
     private $name;
@@ -53,7 +53,10 @@ abstract class AbstractCompany
     private $regon;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=40, nullable=true)
+     * @Assert\Length(
+     *     max="40" 
+     * )
      */
     private $city;
 
@@ -66,7 +69,10 @@ abstract class AbstractCompany
     private $postCode;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=40, nullable=true)
+     * @Assert\Length(
+     *     max="40" 
+     * )
      */
     private $street;
 

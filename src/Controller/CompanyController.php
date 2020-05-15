@@ -60,9 +60,19 @@ class CompanyController extends AbstractController
     }
 
     /**
+     * @Route("/invoice/company/{id}", name="app_company_show")
+     */
+    public function showCompany(Company $company, EntityManagerInterface $em)
+    {
+        return $this->render('company/show.html.twig', [
+            'company' => $company,
+        ]);
+    }
+
+    /**
      * @Route("/invoice/company/{id}/remove", name="app_company_remove")
      */
-    public function edit(Company $company, EntityManagerInterface $em)
+    public function remove(Company $company, EntityManagerInterface $em)
     {
         if (empty($company->getInvoices()->getValues())) {
             $em->remove($company);

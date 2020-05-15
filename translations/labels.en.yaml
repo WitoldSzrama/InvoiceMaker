@@ -1,6 +1,7 @@
 password: Password
 passwordRepeat: Repeat password
 agreeTerms: Agree terms
+goBackList: Go back to companies list
 company:
   user:
     baseNumber: Invoice base number
@@ -11,6 +12,7 @@ company:
   delete: Are you sure?
   company: Company
   options: Options
+  address: Address
   name: Name
   city: City
   postCode: Post code

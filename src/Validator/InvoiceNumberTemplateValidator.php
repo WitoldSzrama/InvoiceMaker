@@ -14,8 +14,8 @@ class InvoiceNumberTemplateValidator extends ConstraintValidator
         if (null === $value || '' === $value) {
             return;
         }
-
-        if (!strpos($value, '$N')) {
+        
+        if (strpos($value, '$N') === false) {
             // TODO: implement the validation here
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)

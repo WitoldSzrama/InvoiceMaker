@@ -61,7 +61,7 @@ class Invoice
     private $salesDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="invoices")
      */
     private $user;
 

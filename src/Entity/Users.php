@@ -68,8 +68,11 @@ class Users extends AbstractCompany implements UserInterface
     private $baseCurrency = 'PLN';
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true)
      * @CustomAssert\InvoiceNumberTemplate(message="templateNumberError")
+     * @Assert\Length(
+     *     max="30",
+     * )
      */
     private $invoiceNumberTemplate = '$Y/$N';
 

@@ -79,7 +79,7 @@ class InvoiceType extends AbstractType
                 if(array_key_exists('products', $event->getData())) {
                     $products = $event->getData()['products'];
                     foreach ($products as $product) {
-                        if ($oldProduct = $this->productRepository->findOneBy(['id' => $product['id']])) {
+                        if (is_numeric($product['id']) && $oldProduct = $this->productRepository->findOneBy(['id' => $product['id']])) {
                             $oldProduct->setUser(null);
                         }
                     }

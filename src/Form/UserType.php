@@ -50,8 +50,6 @@ class UserType extends AbstractType
             ])
             ->add('accountNumber', null, [
                 'label' => $this->translator->trans('company.accountNumber', [], 'labels'),
-                'attr' => ['min' => 0]
-
             ])
             ->add('baseNumber', null, [
                 'label' => $hasInvoices ? !$hasInvoices : $this->translator->trans('company.user.baseNumber', [], 'labels'),
