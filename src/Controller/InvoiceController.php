@@ -46,7 +46,8 @@ class InvoiceController extends AbstractController
 
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
-
+        $pdfOptions->set('isHtml5ParserEnabled', TRUE);
+        $pdfOptions->set('isRemoteEnabled', TRUE);
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
         // Retrieve the HTML generated in our twig file
