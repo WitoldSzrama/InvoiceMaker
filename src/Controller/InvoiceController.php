@@ -64,8 +64,12 @@ class InvoiceController extends AbstractController
         // Render the HTML as PDF
         $dompdf->render();
 
-        return  $dompdf->stream($invoice->getInvoiceNumberSlug().'.pdf', [
+        $dompdf->stream($invoice->getInvoiceNumberSlug().'.pdf', [
             "Attachment" => true
+        ]);
+
+        return $this->render('invoice/template.html.twig', [
+            'invoice' => $invoice,
         ]);
     }
 
