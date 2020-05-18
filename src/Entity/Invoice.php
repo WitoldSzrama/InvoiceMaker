@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Invoice
 {
+    const WRONG_FILE_CHAR = ['.', '/' ,' ', '\\', ',', ':', ';', "'", '"', '<', '>', '=', '@', '`', '{', '}', '*', '|'];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -89,6 +90,11 @@ class Invoice
         }
 
         return $total;
+    }
+
+    public function getInvoiceNumberSlug()
+    {
+        return str_replace(self::WRONG_FILE_CHAR, '-', $this->getInvoiceNumber());
     }
     
     public function getCurrency()
