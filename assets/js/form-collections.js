@@ -77,6 +77,7 @@ function createProductApi($collectionHolder, $newLinkLi)
     select.on('change', function () {
         let selectedProduct = $(this).children("option:selected").val();
         let apiProductUrl = select.closest('li').data('api-product');
+        $('#loadInvoiceProduct').show();
         if (selectedProduct > 0)
         {
             let apiUrlProductPath = apiProductUrl + '/' + selectedProduct;
@@ -84,6 +85,7 @@ function createProductApi($collectionHolder, $newLinkLi)
                 method: 'POST',
                 url: apiUrlProductPath,
             }).done(function (data) {
+                $('#loadInvoiceProduct').hide();
                 addProductForm($collectionHolder, $newLinkLi);
                 let liForm = $('ul li.new-product-form')[0]
                 let product = JSON.parse(data);
@@ -152,4 +154,3 @@ $("input[name*='accountNumber']").on('keypress', function(event) {
         $(this).val(value + ' ');
     }
 });
-

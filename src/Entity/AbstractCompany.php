@@ -209,6 +209,6 @@ abstract class AbstractCompany
 
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName() . ' | NIP: ' . $this->getNip() . ' | REGON: ' . $this->getRegon();
     }
 }

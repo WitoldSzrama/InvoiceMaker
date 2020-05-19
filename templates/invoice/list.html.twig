@@ -29,7 +29,8 @@
             <td>
                 <div class="row justify-content-start">
                     <a href="{{ path('app_invoice_item_remove' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
-                    <a target="_blank" href="{{ path('app_template' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="fas fa-file-download"></i></a>
+                    <a href="{{ path('app_template' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="fas fa-file-download"></i></a>
+                    <a href="{{ path('app_clone' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="fas fa-redo-alt"></i></a>
                 </div>
             </td>
         </tr>
@@ -50,7 +51,7 @@
                     </div>
                     <div class="modal-body">
                         <p>{{ 'invoice.info'|trans([], 'labels') }}</p>
-                        <a target="_blank" role="button" href="{{ path('app_template', {'id' : invoice.id }) }}" class="btn btn-primary">{{ 'button.download'|trans([], 'labels') }}</a>
+                        <a role="button" href="{{ path('app_template', {'id' : invoice.id }) }}" class="btn btn-primary">{{ 'button.download'|trans([], 'labels') }}</a>
                     </div>
                 </div>
             </div>

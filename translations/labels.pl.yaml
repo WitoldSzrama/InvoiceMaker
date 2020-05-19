@@ -22,6 +22,7 @@ company:
   streetNumber: Numer ulicy
   accountNumber: Numer konta
 invoice:
+  payTo: Termin zaplaty
   netSum: Wartosc netto
   grossSum: Wartosc brutto
   salesDate: Data sprzedazy

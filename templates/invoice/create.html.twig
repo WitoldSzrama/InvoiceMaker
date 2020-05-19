@@ -8,6 +8,7 @@
         {{ form_errors(form) }}
         {{ form_row(form.forCompany) }}
         {{ form_row(form.salesDate) }}
+        {{ form_row(form.payTo) }}
         {{ form_row(form.comment) }}
 
         {{ form_label(form.products) }}
@@ -25,6 +26,11 @@
                 >{{ form_row(form.existProduct) }}
                 </li>
             {% endif %}
+                <li class="list-group-item bg-transparent text-center" id="loadInvoiceProduct">
+                    <div class="spinner-border text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </li>
             {% for product in form.products %}
                 <li class="list-group-item bg-transparent new-product-form">
                     <a href="#" class="remove-product">x</a>

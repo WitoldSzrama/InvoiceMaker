@@ -8,6 +8,7 @@ use App\Repository\CompanyRepository;
 use App\Repository\InvoiceRepository;
 use App\Services\InvoiceFactory;
 use App\Services\Pagination;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -84,13 +85,17 @@ class InvoiceController extends AbstractController
             return $this->redirectToRoute('app_company_add');
         }
         if ($invoice == null) {
-            $invoice = $invoiceFactory->createInvoice($this->getUser());
+            $newInvoice = $invoiceFactory->createInvoice($this->getUser());
+        } else {
+            $newInvoice = clone $invoice;
+            $em->remove($invoice);
         }
-        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form = $this->createForm(InvoiceType::class, $newInvoice);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($invoice);
+        if ($form->isSubmitted() && $form->isValid()) {   
+
+            $invoiceFactory->onInvoiceSubmitted($newInvoice, $this->getuser());
+            $em->persist($newInvoice);
             $em->flush();
 
             return $this->redirectToRoute('app_invoice_list', [
@@ -126,5 +131,17 @@ class InvoiceController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_invoice_list');
+    }
+
+    /**
+     * @Route("/invoice/{id}/clone", name="app_clone")
+     */
+    public function repeatInvoice(Invoice $invoice, EntityManagerInterface $em)
+    {
+        $newInvoice = clone $invoice;
+        $em->persist($newInvoice);
+        $em->flush();
+
+        return $this->redirectToRoute('app_invoice_add', ['id' => $newInvoice->getId()]);
     }
 }

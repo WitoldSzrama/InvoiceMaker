@@ -70,6 +70,9 @@ class Invoice
     {
         $this->products = new ArrayCollection();
         $this->salesDate = new DateTime();
+        $payTo = new DateTime();
+        $payTo->modify('+14 days');
+        $this->payTo = $payTo;
     }
 
     public function getTotal()
@@ -240,6 +243,18 @@ class Invoice
         $this->user = $user;
 
         return $this;
+    }
+
+    public function __clone()
+    {
+        if($this->id) {
+            $this->id = null;
+            $this->setCreatedAt(new DateTime());
+            $this->setSalesDate(new DateTime());
+            $payTo = new DateTime();
+            $payTo->modify('+14 days');
+            $this->payTo = $payTo;
+        }
     }
 
 }

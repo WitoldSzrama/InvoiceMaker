@@ -51,6 +51,10 @@ class InvoiceType extends AbstractType
                 'widget' => 'single_text',
                 'label' => $this->translator->trans('invoice.salesDate', [], 'labels'),
             ])
+            ->add('payTo', DateType::class, [
+                'widget' => 'single_text',
+                'label' => $this->translator->trans('invoice.payTo', [], 'labels'),
+            ])
             ->add('comment',null, [
                 'label' => $this->translator->trans('invoice.comment', [], 'labels')
             ])
