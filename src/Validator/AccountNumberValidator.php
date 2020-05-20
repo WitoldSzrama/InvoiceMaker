@@ -16,18 +16,16 @@ class AccountNumberValidator extends ConstraintValidator
             return;
         }
         $arrayValues = explode(' ', $value);
-        if (count($arrayValues) !== 7) {
+        if (7 !== count($arrayValues)) {
             $wrongAccountNumber = true;
         }
 
         foreach ($arrayValues as $key => $value) {
-
-            if (strlen((int)$value) != strlen($value) || (($key == 0 && strlen($value) != 2) || ($key != 0 && strlen($value) != 4))){
+            if (strlen((int) $value) != strlen($value) || ((0 == $key && 2 != strlen($value)) || (0 != $key && 4 != strlen($value)))) {
                 $wrongAccountNumber = true;
             }
-
         }
-        
+
         if ($wrongAccountNumber) {
             $this->context->buildViolation($constraint->message)
             ->addViolation();

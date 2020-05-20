@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Validator as CustomAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator as CustomAssert;
 
 /**
  * @ORM\MappedSuperclass()
@@ -38,7 +38,7 @@ abstract class AbstractCompany
      * @ORM\Column(type="integer", length=10, nullable=true)
      * @Assert\Length(
      *     min="10",
-     *     max="10" 
+     *     max="10"
      * )
      */
     private $nip;
@@ -47,7 +47,7 @@ abstract class AbstractCompany
      * @ORM\Column(type="integer", length=9, nullable=true)
      * @Assert\Length(
      *     min="7",
-     *     max="14" 
+     *     max="14"
      * )
      */
     private $regon;
@@ -55,7 +55,7 @@ abstract class AbstractCompany
     /**
      * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Length(
-     *     max="40" 
+     *     max="40"
      * )
      */
     private $city;
@@ -63,7 +63,7 @@ abstract class AbstractCompany
     /**
      * @ORM\Column(type="string", length=9, nullable=true)
      * @Assert\Length(
-     *     max="9" 
+     *     max="9"
      * )
      */
     private $postCode;
@@ -71,7 +71,7 @@ abstract class AbstractCompany
     /**
      * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Length(
-     *     max="40" 
+     *     max="40"
      * )
      */
     private $street;
@@ -79,7 +79,7 @@ abstract class AbstractCompany
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      * @Assert\Length(
-     *     max="20" 
+     *     max="20"
      * )
      */
     private $stNumber;
@@ -89,7 +89,7 @@ abstract class AbstractCompany
      * @CustomAssert\AccountNumber()
      * @Assert\Length(
      *     min="32",
-     *     max="32" 
+     *     max="32"
      * )
      */
     private $accountNumber;
@@ -209,6 +209,6 @@ abstract class AbstractCompany
 
     public function __toString()
     {
-        return $this->getName() . ' | NIP: ' . $this->getNip() . ' | REGON: ' . $this->getRegon();
+        return $this->getName().' | NIP: '.$this->getNip().' | REGON: '.$this->getRegon();
     }
 }

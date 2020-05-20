@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use App\Entity\Users;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -27,7 +26,6 @@ class ProductRepository extends AbstractRepository
         ->setParameter('user', $user)
         ->orderBy('p.name', 'ASC')
         ;
-
     }
 
     /**

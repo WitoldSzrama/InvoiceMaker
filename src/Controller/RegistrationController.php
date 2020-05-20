@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +14,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-
     private $translator;
 
     public function __construct(TranslatorInterface $translator)
@@ -47,6 +45,7 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
             $this->addFlash('registration_success', $this->translator->trans('company.user.firstLoginFlash', [], 'labels'));
+
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

@@ -5,7 +5,6 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Invoice
 {
-    const WRONG_FILE_CHAR = ['.', '/' ,' ', '\\', ',', ':', ';', "'", '"', '<', '>', '=', '@', '`', '{', '}', '*', '|'];
+    const WRONG_FILE_CHAR = ['.', '/', ' ', '\\', ',', ':', ';', "'", '"', '<', '>', '=', '@', '`', '{', '}', '*', '|'];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -100,7 +99,7 @@ class Invoice
     {
         return str_replace(self::WRONG_FILE_CHAR, '-', $this->getInvoiceNumber());
     }
-    
+
     public function getCurrency()
     {
         return $this->products[0]->getCurrency();
@@ -173,7 +172,7 @@ class Invoice
 
     public function overdue()
     {
-        if ($this->payTo < new \DateTime()){
+        if ($this->payTo < new \DateTime()) {
             return true;
         }
 
@@ -248,7 +247,7 @@ class Invoice
 
     public function __clone()
     {
-        if($this->id) {
+        if ($this->id) {
             $this->id = null;
             $this->setCreatedAt(new DateTime());
             $this->setSalesDate(new DateTime());
@@ -257,5 +256,4 @@ class Invoice
             $this->payTo = $payTo;
         }
     }
-
 }

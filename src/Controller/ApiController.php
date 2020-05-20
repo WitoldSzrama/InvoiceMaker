@@ -16,6 +16,7 @@ class ApiController extends AbstractController
     public function apiProduct(Product $product, SerializerInterface $serializer, $id = 0)
     {
         $jsonProduct = $serializer->serialize($product, 'json', ['groups' => 'apiProduct']);
+
         return $this->json($jsonProduct);
     }
 
@@ -26,6 +27,6 @@ class ApiController extends AbstractController
     {
         $em->remove($product);
 
-        return $this->json("{Product removed}");
+        return $this->json('{Product removed}');
     }
 }

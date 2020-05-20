@@ -16,11 +16,11 @@ class BaseVatValidator extends ConstraintValidator
         }
         $baseVatArray = explode(', ', $value);
         foreach ($baseVatArray as $vat) {
-            if(!is_numeric($vat) || !is_integer((int)$vat) || !((int)$vat >= 0 && (int)$vat <= 100)) {
-                $validate = $validate . ' ' . $vat;
+            if (!is_numeric($vat) || !is_integer((int) $vat) || !((int) $vat >= 0 && (int) $vat <= 100)) {
+                $validate = $validate.' '.$vat;
             }
         }
-        if($validate) {
+        if ($validate) {
             $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $validate)
             ->addViolation();

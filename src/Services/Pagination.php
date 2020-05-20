@@ -15,7 +15,7 @@ class Pagination
 
         return $paginator->paginate(
             $query,
-            $request->query->getInt('page',1),
+            $request->query->getInt('page', 1),
             10
         );
     }

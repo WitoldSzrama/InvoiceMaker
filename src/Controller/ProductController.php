@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Company;
 use App\Entity\Product;
-use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Services\Pagination;
-use App\Services\ProductFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +30,6 @@ class ProductController extends AbstractController
      */
     public function edit(Product $product)
     {
-
         return $this->redirectToRoute('app_product_add', [
             'id' => $product->getId(),
         ]);

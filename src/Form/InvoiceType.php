@@ -22,7 +22,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InvoiceType extends AbstractType
 {
-
     private $security;
     private $translator;
     private $em;
@@ -45,7 +44,7 @@ class InvoiceType extends AbstractType
                 'label' => $this->translator->trans('invoice.company', [], 'labels'),
                 'query_builder' => function (CompanyRepository $cr) {
                     return $cr->getQueryBuilderByUser($this->security->getUser());
-                }
+                },
             ])
             ->add('salesDate', DateType::class, [
                 'widget' => 'single_text',
@@ -55,8 +54,8 @@ class InvoiceType extends AbstractType
                 'widget' => 'single_text',
                 'label' => $this->translator->trans('invoice.payTo', [], 'labels'),
             ])
-            ->add('comment',null, [
-                'label' => $this->translator->trans('invoice.comment', [], 'labels')
+            ->add('comment', null, [
+                'label' => $this->translator->trans('invoice.comment', [], 'labels'),
             ])
             ->add('products', CollectionType::class, [
                 'label' => $this->translator->trans('invoice.products', [], 'labels'),
@@ -77,10 +76,10 @@ class InvoiceType extends AbstractType
                 },
                 'label' => false,
                 // 'choice_label' => 'name',
-                'required' =>false,
+                'required' => false,
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event){
-                if(array_key_exists('products', $event->getData())) {
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                if (array_key_exists('products', $event->getData())) {
                     $products = $event->getData()['products'];
                     foreach ($products as $product) {
                         if (is_numeric($product['id']) && $oldProduct = $this->productRepository->findOneBy(['id' => $product['id']])) {
@@ -94,8 +93,6 @@ class InvoiceType extends AbstractType
                 }
             })
         ;
-
-        
     }
 
     public function configureOptions(OptionsResolver $resolver)

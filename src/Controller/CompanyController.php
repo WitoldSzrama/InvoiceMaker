@@ -17,19 +17,17 @@ class CompanyController extends AbstractController
 {
     /**
      * @Route("/invoice/company-create/{id}", name="app_company_add")
-     * @param Request $request
-     * @param EntityManagerInterface $em
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(Company $company = null, Request $request, EntityManagerInterface $em, $id = null)
     {
-        if($company === null) {
+        if (null === $company) {
             $company = new Company();
-        }  
-        
+        }
 
         $form = $this->createForm(CompanyType::class, $company);
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Company $company */
@@ -38,7 +36,7 @@ class CompanyController extends AbstractController
 
             $em->persist($company);
             $em->flush();
-             
+
             return $this->redirect($this->getRefererUrl($request));
         }
 
@@ -80,13 +78,14 @@ class CompanyController extends AbstractController
             $company->setUser(null);
         }
         $em->flush();
+
         return $this->redirectToRoute('app_company_list');
     }
 
     private function getRefererUrl(Request $request)
     {
         $referer = $request->request->get('referer');
-        $baseInvoiceUrl = $this->generateUrl('app_invoice', [] , UrlGeneratorInterface::ABSOLUTE_URL);
+        $baseInvoiceUrl = $this->generateUrl('app_invoice', [], UrlGeneratorInterface::ABSOLUTE_URL);
         if ($referer === $baseInvoiceUrl) {
             return $this->generateUrl('app_invoice_add');
         }

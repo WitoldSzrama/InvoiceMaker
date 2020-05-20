@@ -203,6 +203,6 @@ class Product
 
     public function __toString()
     {
-        return $this->name . ' | NET: ' . $this->netValue .' | VAT: ' .$this->vat . '% | ' . $this->quantity;
+        return $this->name.' | NET: '.$this->netValue.' | VAT: '.$this->vat.'% | '.$this->quantity;
     }
 }

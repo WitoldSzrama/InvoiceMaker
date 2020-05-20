@@ -24,30 +24,30 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => $this->translator->trans('company.name', [], 'labels')
+                'label' => $this->translator->trans('company.name', [], 'labels'),
             ])
             ->add('nip', null, [
                 'label' => $this->translator->trans('company.nip', [], 'labels'),
-                'attr' => ['min' => 1000000000, 'max' => 9999999999]
+                'attr' => ['min' => 1000000000, 'max' => 9999999999],
                 ])
             ->add('regon', null, [
                 'label' => $this->translator->trans('company.regon', [], 'labels'),
-                'attr' => ['min' => 1000000, 'max' => 99999999999999]
+                'attr' => ['min' => 1000000, 'max' => 99999999999999],
             ])
             ->add('city', null, [
-                'label' => $this->translator->trans('company.city', [], 'labels')
+                'label' => $this->translator->trans('company.city', [], 'labels'),
             ])
             ->add('postCode', null, [
-                'label' => $this->translator->trans('company.postCode', [], 'labels')
+                'label' => $this->translator->trans('company.postCode', [], 'labels'),
             ])
             ->add('street', null, [
-                'label' => $this->translator->trans('company.street', [], 'labels')
+                'label' => $this->translator->trans('company.street', [], 'labels'),
             ])
             ->add('stNumber', null, [
-                'label' => $this->translator->trans('company.streetNumber', [], 'labels')
+                'label' => $this->translator->trans('company.streetNumber', [], 'labels'),
             ])
             ->add('accountNumber', null, [
-                'label' => $this->translator->trans('company.accountNumber', [], 'labels')
+                'label' => $this->translator->trans('company.accountNumber', [], 'labels'),
             ])
         ;
     }

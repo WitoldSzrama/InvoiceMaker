@@ -3,13 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Product;
-use App\Entity\Users;
 use App\Repository\UserRepository;
 use App\Services\ProductFactory;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -36,13 +35,12 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('id', HiddenType::class, [
-
             ])
             ->add('name', null, [
-                'label' => $this->translator->trans('product.name', [], 'labels')
+                'label' => $this->translator->trans('product.name', [], 'labels'),
             ])
             ->add('quantity', null, [
-                'label' => $this->translator->trans('product.quantity', [], 'labels')
+                'label' => $this->translator->trans('product.quantity', [], 'labels'),
             ])
             ->add('netValue', MoneyType::class, [
                 'label' => $this->translator->trans('product.netValue', [], 'labels'),
@@ -55,7 +53,7 @@ class ProductType extends AbstractType
             ->add('vat', ChoiceType::class, [
                 'choices' => $this->productFactory->getVatChoices($this->security->getUser()),
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event){
+            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
                 $product = $event->getData();
                 $product->setUser($this->security->getUser());
                 $product->setCurrency($this->security->getUser()->getBaseCurrency());

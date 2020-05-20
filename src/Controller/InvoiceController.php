@@ -8,14 +8,12 @@ use App\Repository\CompanyRepository;
 use App\Repository\InvoiceRepository;
 use App\Services\InvoiceFactory;
 use App\Services\Pagination;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -44,19 +42,18 @@ class InvoiceController extends AbstractController
      */
     public function template(Invoice $invoice)
     {
-
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->set('isHtml5ParserEnabled', TRUE);
-        $pdfOptions->set('isRemoteEnabled', TRUE);
+        $pdfOptions->set('isHtml5ParserEnabled', true);
+        $pdfOptions->set('isRemoteEnabled', true);
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('invoice/template.html.twig', [
             'invoice' => $invoice,
         ]);
-        $html = mb_convert_encoding($html, "ASCII");
+        $html = mb_convert_encoding($html, 'ASCII');
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
 
@@ -66,7 +63,7 @@ class InvoiceController extends AbstractController
         $dompdf->render();
 
         $dompdf->stream($invoice->getInvoiceNumberSlug().'.pdf', [
-            "Attachment" => true
+            'Attachment' => true,
         ]);
 
         return $this->render('invoice/template.html.twig', [
@@ -79,12 +76,12 @@ class InvoiceController extends AbstractController
      */
     public function createInvoice(Request $request, InvoiceFactory $invoiceFactory, EntityManagerInterface $em, CompanyRepository $companyRepository, Invoice $invoice = null, $id = null)
     {
-        if(empty($this->getUser()->getCompanies()->getValues())) {
+        if (empty($this->getUser()->getCompanies()->getValues())) {
             $this->addFlash('noCompany', $this->translator->trans('noCompany', [], 'invoice'));
 
             return $this->redirectToRoute('app_company_add');
         }
-        if ($invoice == null) {
+        if (null == $invoice) {
             $newInvoice = $invoiceFactory->createInvoice($this->getUser());
         } else {
             if ($invoice->getUser() !== $this->getUser()) {
@@ -94,8 +91,7 @@ class InvoiceController extends AbstractController
         }
         $form = $this->createForm(InvoiceType::class, $newInvoice);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {   
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $invoiceFactory->onInvoiceSubmitted($newInvoice, $this->getuser());
             $em->persist($newInvoice);
             $em->flush();

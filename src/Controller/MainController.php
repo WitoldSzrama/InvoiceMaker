@@ -32,7 +32,7 @@ class MainController extends AbstractController
      */
     public function pl(Request $request)
     {
-        $this->setLocale($request,'pl');
+        $this->setLocale($request, 'pl');
 
         return $this->redirect($request->headers->get('referer'));
     }
@@ -42,16 +42,14 @@ class MainController extends AbstractController
      */
     public function en(Request $request)
     {
-        $this->setLocale($request,'en');
+        $this->setLocale($request, 'en');
 
         return $this->redirect($request->headers->get('referer'));
     }
 
-
-    private function setLocale(Request $request,string $locale): void
+    private function setLocale(Request $request, string $locale): void
     {
         $request->setLocale($locale);
         $request->getSession()->set('_locale', $locale);
     }
-
 }

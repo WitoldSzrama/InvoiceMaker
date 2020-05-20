@@ -22,7 +22,7 @@ class InvoiceFactory
 
     private function createInvoiceNumber(Users $user, Invoice $invoice)
     {
-        if(count($user->getInvoices()) === 0){
+        if (0 === count($user->getInvoices())) {
             $number = $user->getBaseNumber();
         } else {
             $number = count($user->getInvoices()) + $user->getBaseNumber();
@@ -33,8 +33,7 @@ class InvoiceFactory
         return $this->createInvoiceNumberFromTemplate($user->getInvoiceNumberTemplate(), $number, $year, $month);
     }
 
-
-    public function createCompanyFromUser(Users $user,Invoice $invoice)
+    public function createCompanyFromUser(Users $user, Invoice $invoice)
     {
         $company = new Company();
         $company->setContactEmail($user->getEmail());
@@ -50,16 +49,16 @@ class InvoiceFactory
         return $company;
     }
 
-    public function onInvoiceSubmitted(Invoice $invoice, Users $user) {
+    public function onInvoiceSubmitted(Invoice $invoice, Users $user)
+    {
         $invoice->setInvoiceNumber($this->createInvoiceNumber($user, $invoice));
         $payTo = new DateTime($invoice->getSalesDate()->format('Y-m-d'));
         $payTo->modify('+14 days');
         $invoice->setPayTo($payTo);
     }
 
-    private function createInvoiceNumberFromTemplate(string $template,string $number,string $year, string $month): string
+    private function createInvoiceNumberFromTemplate(string $template, string $number, string $year, string $month): string
     {
-        
         $invoiceNumber = str_replace('$Y', $year, $template);
         $invoiceNumber = str_replace('$M', $month, $invoiceNumber);
         $invoiceNumber = str_replace('$N', $number, $invoiceNumber);
