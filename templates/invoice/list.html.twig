@@ -30,7 +30,7 @@
                 <div class="row justify-content-start">
                     <a href="{{ path('app_invoice_item_remove' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="far fa-trash-alt "></i></a>
                     <a href="{{ path('app_template' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="fas fa-file-download"></i></a>
-                    <a href="{{ path('app_clone' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="fas fa-redo-alt"></i></a>
+                    <a href="{{ path('app_invoice_add' , {'id':invoice.id}) }}" class="col-3 delete-button"><i class="fas fa-redo-alt"></i></a>
                 </div>
             </td>
         </tr>

@@ -14,7 +14,6 @@ class InvoiceFactory
     public function createInvoice(Users $user)
     {
         $invoice = new Invoice();
-        $invoice->setCreatedAt(new \DateTime());
         $invoice->setUser($user);
         $invoice->setByCompany($this->createCompanyFromUser($user, $invoice));
 

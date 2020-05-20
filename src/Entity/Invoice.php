@@ -70,6 +70,7 @@ class Invoice
     {
         $this->products = new ArrayCollection();
         $this->salesDate = new DateTime();
+        $this->createdAt = new DateTime();
         $payTo = new DateTime();
         $payTo->modify('+14 days');
         $this->payTo = $payTo;

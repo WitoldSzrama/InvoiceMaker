@@ -87,8 +87,10 @@ class InvoiceController extends AbstractController
         if ($invoice == null) {
             $newInvoice = $invoiceFactory->createInvoice($this->getUser());
         } else {
+            if ($invoice->getUser() !== $this->getUser()) {
+                throw $this->createAccessDeniedException();
+            }
             $newInvoice = clone $invoice;
-            $em->remove($invoice);
         }
         $form = $this->createForm(InvoiceType::class, $newInvoice);
         $form->handleRequest($request);
@@ -131,17 +133,5 @@ class InvoiceController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_invoice_list');
-    }
-
-    /**
-     * @Route("/invoice/{id}/clone", name="app_clone")
-     */
-    public function repeatInvoice(Invoice $invoice, EntityManagerInterface $em)
-    {
-        $newInvoice = clone $invoice;
-        $em->persist($newInvoice);
-        $em->flush();
-
-        return $this->redirectToRoute('app_invoice_add', ['id' => $newInvoice->getId()]);
     }
 }
