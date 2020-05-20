@@ -99,7 +99,7 @@ class InvoiceController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('app_invoice_list', [
-                'id' => $invoice->getId(),
+                'id' => $newInvoice->getId(),
             ]);
         }
 
