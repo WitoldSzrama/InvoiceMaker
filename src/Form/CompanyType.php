@@ -54,9 +54,9 @@ class CompanyType extends AbstractType
             ->add('accountNumber', null, [
                 'label' => $this->translator->trans('company.accountNumber', [], 'labels'),
             ])
-            ->addEventListener(FormEvents::SUBMIT, function(FormEvent $formEvent) {
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $formEvent) {
                 $user = $formEvent->getData();
-                $user->setStNumber($user->getHouseNumber() . '/' . $user->getLocalNumber());
+                $user->setStNumber($user->getHouseNumber().'/'.$user->getLocalNumber());
             })
         ;
     }

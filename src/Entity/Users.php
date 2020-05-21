@@ -104,9 +104,9 @@ class Users extends AbstractCompany implements UserInterface
         $this->invoices = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->contactEmail = $this->email;
-        $data = new DateTime;
-        $this->month = (int)$data->format('m');
-        $this->year = (int)$data->format('Y');
+        $data = new DateTime();
+        $this->month = (int) $data->format('m');
+        $this->year = (int) $data->format('Y');
     }
 
     public function getEmail(): ?string
@@ -336,9 +336,9 @@ class Users extends AbstractCompany implements UserInterface
 
     public function getYear(): ?int
     {
-        if ($this->year === null) {
+        if (null === $this->year) {
             $data = new DateTime();
-            $this->setYear((int)$data->format('Y'));
+            $this->setYear((int) $data->format('Y'));
         }
 
         return $this->year;
@@ -353,9 +353,9 @@ class Users extends AbstractCompany implements UserInterface
 
     public function getMonth(): ?int
     {
-        if ($this->month === null) {
+        if (null === $this->month) {
             $data = new DateTime();
-            $this->setMonth((int)$data->format('m'));
+            $this->setMonth((int) $data->format('m'));
         }
 
         return $this->month;

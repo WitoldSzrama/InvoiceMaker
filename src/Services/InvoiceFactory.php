@@ -25,13 +25,13 @@ class InvoiceFactory
         $baseYear = $user->getYear();
         $baseMonth = $user->getMonth();
         $saleTime = $invoice->getSalesDate();
-        if ($baseYear < (int)$saleTime->format('Y')) {
-            $user->setYear((int)$saleTime->format('Y'));
+        if ($baseYear < (int) $saleTime->format('Y')) {
+            $user->setYear((int) $saleTime->format('Y'));
             $user->setBaseNumber(1);
         }
 
-        if ($user->getIsMonth() && $baseMonth < (int)$saleTime->format('m')) {
-            $user->setYear((int)$saleTime->format('m'));
+        if ($user->getIsMonth() && $baseMonth < (int) $saleTime->format('m')) {
+            $user->setYear((int) $saleTime->format('m'));
             $user->setBaseNumber(1);
         }
 
@@ -40,7 +40,7 @@ class InvoiceFactory
         $month = $invoice->getCreatedAt()->format('m');
 
         $user->setBaseNumber($user->getBaseNumber() + 1);
-        
+
         return $this->createInvoiceNumberFromTemplate($user->getInvoiceNumberTemplate(), $number, $year, $month);
     }
 

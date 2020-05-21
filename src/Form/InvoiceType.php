@@ -62,7 +62,7 @@ class InvoiceType extends AbstractType
                 'entry_type' => ProductType::class,
                 'entry_options' => [
                     'required' => true,
-                    'attr' => [ 'class' => 'row',]
+                    'attr' => ['class' => 'row'],
                 ],
                 'allow_add' => true,
                 'by_reference' => false,

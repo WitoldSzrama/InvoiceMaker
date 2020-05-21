@@ -80,9 +80,9 @@ class UserType extends AbstractType
             ->add('baseVat', null, [
                 'label' => $this->translator->trans('company.user.baseVat', [], 'labels'),
             ])
-            ->addEventListener(FormEvents::SUBMIT, function(FormEvent $formEvent) {
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $formEvent) {
                 $user = $formEvent->getData();
-                $user->setStNumber($user->getHouseNumber() . '/' . $user->getLocalNumber());
+                $user->setStNumber($user->getHouseNumber().'/'.$user->getLocalNumber());
             })
         ;
     }
