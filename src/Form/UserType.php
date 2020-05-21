@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -44,11 +46,18 @@ class UserType extends AbstractType
             ->add('street', null, [
                 'label' => $this->translator->trans('company.street', [], 'labels'),
             ])
-            ->add('stNumber', null, [
-                'label' => $this->translator->trans('company.streetNumber', [], 'labels'),
+            ->add('houseNumber', null, [
+                'label' => $this->translator->trans('company.houseNumber', [], 'labels'),
+            ])
+            ->add('localNumber', null, [
+                'label' => $this->translator->trans('company.localNumber', [], 'labels'),
             ])
             ->add('accountNumber', null, [
                 'label' => $this->translator->trans('company.accountNumber', [], 'labels'),
+            ])
+            ->add('isMonth', null, [
+                'label' => $this->translator->trans('user.resetNumberMonthly', [], 'labels'),
+                'help' => $this->translator->trans('user.resetNumberMonthlyHelp', [], 'labels'),
             ])
             ->add('baseNumber', null, [
                 'label' => $hasInvoices ? !$hasInvoices : $this->translator->trans('company.user.baseNumber', [], 'labels'),
@@ -71,6 +80,10 @@ class UserType extends AbstractType
             ->add('baseVat', null, [
                 'label' => $this->translator->trans('company.user.baseVat', [], 'labels'),
             ])
+            ->addEventListener(FormEvents::SUBMIT, function(FormEvent $formEvent) {
+                $user = $formEvent->getData();
+                $user->setStNumber($user->getHouseNumber() . '/' . $user->getLocalNumber());
+            })
         ;
     }
 

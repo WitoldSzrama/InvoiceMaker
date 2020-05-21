@@ -94,6 +94,16 @@ abstract class AbstractCompany
      */
     private $accountNumber;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $localNumber;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $houseNumber;
+
     public function getContactEmail(): ?string
     {
         return $this->contactEmail;
@@ -210,5 +220,29 @@ abstract class AbstractCompany
     public function __toString()
     {
         return $this->getName().' | NIP: '.$this->getNip().' | REGON: '.$this->getRegon();
+    }
+
+    public function getLocalNumber(): ?string
+    {
+        return $this->localNumber;
+    }
+
+    public function setLocalNumber(?string $localNumber): self
+    {
+        $this->localNumber = $localNumber;
+
+        return $this;
+    }
+
+    public function getHouseNumber(): ?string
+    {
+        return $this->houseNumber;
+    }
+
+    public function setHouseNumber(?string $houseNumber): self
+    {
+        $this->houseNumber = $houseNumber;
+
+        return $this;
     }
 }

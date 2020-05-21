@@ -9,10 +9,12 @@
         </div>
     {% endfor %}
     {{ form_start(settingsForm) }}
-        <h2> Ustawienia uzytkownika </h2>
+        <div class="text-center mb-4">
+            <h2>{{ 'user.settings'|trans([], 'labels')|upper }}</h2>
+        </div> 
         <div class="row">
             <div class="col-6">
-                <h3> Dane firmy </h3>
+                <h3>{{ 'company.info'|trans([], 'labels') }}</h3>
                 {{ form_row(settingsForm.name) }}
                 {{ form_row(settingsForm.nip) }}
                 {{ form_row(settingsForm.regon) }}
@@ -28,15 +30,19 @@
                     <div class="col-lg-8">
                         {{ form_row(settingsForm.street) }}
                     </div>
-                    <div class="col-lg-4">
-                        {{ form_row(settingsForm.stNumber) }}
+                    <div class="col-lg-2">
+                        {{ form_row(settingsForm.houseNumber) }}
+                    </div>
+                    <div class="col-lg-2">
+                        {{ form_row(settingsForm.localNumber) }}
                     </div>
                 </div>
                 {{ form_row(settingsForm.accountNumber) }}
             </div>
             <div class="col-6">
-                <h3> Dane do faktury </h3>
+                <h3> {{ 'user.invoiceSettings'|trans([], 'labels') }} </h3>
                 {{ form_row(settingsForm.baseNumber) }}
+                {{ form_row(settingsForm.isMonth) }}
                 {{ form_row(settingsForm.invoiceNumberTemplate) }}
                 {{ form_row(settingsForm.baseCurrency) }}
                 {{ form_row(settingsForm.baseVat) }}

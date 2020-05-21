@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Validator as CustomAssert;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -82,12 +83,30 @@ class Users extends AbstractCompany implements UserInterface
      */
     private $baseVat = '0, 3, 5, 7, 8, 23';
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $year;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $month;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isMonth;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
         $this->invoices = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->contactEmail = $this->email;
+        $data = new DateTime;
+        $this->month = (int)$data->format('m');
+        $this->year = (int)$data->format('Y');
     }
 
     public function getEmail(): ?string
@@ -311,6 +330,52 @@ class Users extends AbstractCompany implements UserInterface
     public function setBaseVat(?string $baseVat): self
     {
         $this->baseVat = $baseVat;
+
+        return $this;
+    }
+
+    public function getYear(): ?int
+    {
+        if ($this->year === null) {
+            $data = new DateTime();
+            $this->setYear((int)$data->format('Y'));
+        }
+
+        return $this->year;
+    }
+
+    public function setYear(?int $year): self
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    public function getMonth(): ?int
+    {
+        if ($this->month === null) {
+            $data = new DateTime();
+            $this->setMonth((int)$data->format('m'));
+        }
+
+        return $this->month;
+    }
+
+    public function setMonth(?int $month): self
+    {
+        $this->month = $month;
+
+        return $this;
+    }
+
+    public function getIsMonth(): ?bool
+    {
+        return $this->isMonth;
+    }
+
+    public function setIsMonth(?bool $isMonth): self
+    {
+        $this->isMonth = $isMonth;
 
         return $this;
     }

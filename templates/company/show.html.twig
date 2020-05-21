@@ -19,6 +19,18 @@
             {{ company.street }} {{ company.stNumber }} {{ company.postCode }} {{ company.city }}</h5>
         </div>
         <div class="card-body">
+            <h5 class="card-text"><b>{{ 'company.invoices'|trans([], 'labels')|upper }}: </b> 
+            <ul class="list-group list-group-horizontal">
+                {% for invoice in company.invoices %}
+                    <li class="list-group-item bg-transparent m-2">
+                        <a href="{{ path('app_template' , {'id':invoice.id}) }}" class="col-3 delete-button">
+                            {{ invoice.invoiceNumber }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-body">
             <a class="btn btn-primary" href="{{ path('app_company_list') }}" role="button">
                 {{ 'goBackList'|trans([], 'labels')|upper }}
             </a>

@@ -38,6 +38,7 @@ function addProductForm($collectionHolder, $newLinkLi) {
     // instead be a number based on how many items we have
     var newForm = prototype.replace(/__name__/g, index);
     // increase the index with one for the next item
+    
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
@@ -153,4 +154,13 @@ $("input[name*='accountNumber']").on('keypress', function(event) {
     if (accountSpacesAfter.includes(value.length)) {
         $(this).val(value + ' ');
     }
+});
+
+$(document).ready(function(){
+    $(".searchInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
 });

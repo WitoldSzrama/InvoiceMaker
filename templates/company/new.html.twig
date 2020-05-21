@@ -8,8 +8,31 @@
             {{ message }}
         </div>
     {% endfor %}
+    <h3> Dane firmy </h3>
     {{ form_start(companyForm) }}
-        {{ form_widget(companyForm) }}
+        {{ form_row(companyForm.name) }}
+        {{ form_row(companyForm.nip) }}
+        {{ form_row(companyForm.regon) }}
+        <div class="row">
+            <div class="col-lg-8">
+                {{ form_row(companyForm.city) }}
+            </div>
+            <div class="col-lg-4">
+                {{ form_row(companyForm.postCode) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                {{ form_row(companyForm.street) }}
+            </div>
+            <div class="col-lg-2">
+                {{ form_row(companyForm.houseNumber) }}
+            </div>
+            <div class="col-lg-2">
+                {{ form_row(companyForm.localNumber) }}
+            </div>
+        </div>
+        {{ form_row(companyForm.accountNumber) }}
         <div class="text-right sticky-position">
             <button type="submit" class="btn btn-primary ">{{ 'button.create'|trans([], 'main')|upper }}</button>
         </div>

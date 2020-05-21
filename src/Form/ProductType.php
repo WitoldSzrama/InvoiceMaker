@@ -38,20 +38,25 @@ class ProductType extends AbstractType
             ])
             ->add('name', null, [
                 'label' => $this->translator->trans('product.name', [], 'labels'),
+                'row_attr' => ['class' => 'col-12']
             ])
             ->add('quantity', null, [
                 'label' => $this->translator->trans('product.quantity', [], 'labels'),
+                'row_attr' => ['class' => 'col-2']
             ])
             ->add('netValue', MoneyType::class, [
                 'label' => $this->translator->trans('product.netValue', [], 'labels'),
                 'currency' => $this->productFactory::CURRENCY,
+                'row_attr' => ['class' => 'col-4']
             ])
             ->add('grossValue', MoneyType::class, [
                 'label' => $this->translator->trans('product.grossValue', [], 'labels'),
                 'currency' => $this->productFactory::CURRENCY,
+                'row_attr' => ['class' => 'col-4']
             ])
             ->add('vat', ChoiceType::class, [
                 'choices' => $this->productFactory->getVatChoices($this->security->getUser()),
+                'row_attr' => ['class' => 'col-2']
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
                 $product = $event->getData();

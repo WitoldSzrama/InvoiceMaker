@@ -3,6 +3,8 @@ passwordRepeat: Repeat password
 agreeTerms: Agree terms
 goBackList: Go back to companies list
 company:
+  invoices: Related invoices 
+  info: Company parameters
   user:
     baseNumber: Invoice base number
     baseVat: Base Vat %
@@ -10,6 +12,8 @@ company:
     baseCurrency: Base currency
     firstLoginFlash: Please set basic informations about your comapny and invoice template
   delete: Are you sure?
+  houseNumber: House
+  localNumber: Local
   company: Company
   options: Options
   address: Address
@@ -61,3 +65,8 @@ template:
   netPrice: Net price
   seller: Seller
   buyer: Buyer
+user:
+  invoiceSettings: Invoice parameters
+  settings: User settings
+  resetNumberMonthly: Reset invoice number each month
+  resetNumberMonthlyHelp: Reset every year default, $M symbol require inside Invoice number template

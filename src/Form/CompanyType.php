@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Company;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -40,15 +42,22 @@ class CompanyType extends AbstractType
             ->add('postCode', null, [
                 'label' => $this->translator->trans('company.postCode', [], 'labels'),
             ])
+            ->add('houseNumber', null, [
+                'label' => $this->translator->trans('company.houseNumber', [], 'labels'),
+            ])
+            ->add('localNumber', null, [
+                'label' => $this->translator->trans('company.localNumber', [], 'labels'),
+            ])
             ->add('street', null, [
                 'label' => $this->translator->trans('company.street', [], 'labels'),
-            ])
-            ->add('stNumber', null, [
-                'label' => $this->translator->trans('company.streetNumber', [], 'labels'),
             ])
             ->add('accountNumber', null, [
                 'label' => $this->translator->trans('company.accountNumber', [], 'labels'),
             ])
+            ->addEventListener(FormEvents::SUBMIT, function(FormEvent $formEvent) {
+                $user = $formEvent->getData();
+                $user->setStNumber($user->getHouseNumber() . '/' . $user->getLocalNumber());
+            })
         ;
     }
 

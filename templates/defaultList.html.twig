@@ -3,7 +3,15 @@
 {% block title %}{{ app.user.name|upper }}{% endblock %}
 
 {% block body %}
-    <div class="text-right">
+    <div class="d-flex justify-content-between">
+        <form class="form-inline">
+            <input 
+                class="form-control mr-sm-2 searchInput"
+                type="search"
+                placeholder="{{ 'search'|trans([], 'main') }}"
+                aria-label="Search"
+            >
+        </form>
         {% block header_right %}{% endblock %}
     </div>
     <table class="table table-striped bg-light">
@@ -12,7 +20,7 @@
                 {% block table_head %}{% endblock %}
             </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
             {% block table_body %}{% endblock %}
         </tbody>
     </table>

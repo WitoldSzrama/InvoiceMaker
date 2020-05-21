@@ -3,6 +3,8 @@ passwordRepeat: Powtorz haslo
 agreeTerms: Akceptuje regulamin
 goBackList: Wroc do listy
 company:
+  invoices: Powiazane faktury
+  info: Dane firmy
   user:
     baseNumber: Numer startowy faktury
     baseVat: Bazowe stawki Vat
@@ -11,6 +13,8 @@ company:
     firstLoginFlash: Prosze uzupelnic podstawowe informacje o firmie oraz dane do szkieletu faktury
   delete: Czy jestes pewien ?
   company: Firma
+  houseNumber: Dom
+  localNumber: Lokal
   nip: Nip
   address: Adres
   regon: Regon
@@ -60,3 +64,8 @@ template:
   netPrice: Cena netto
   seller: Nabywca
   buyer: Sprzedawca
+user:
+  invoiceSettings: Parametry faktury
+  settings: Ustawienia uzytkownika
+  resetNumberMonthly: Resetuj numer faktury kazdego miesiaca
+  resetNumberMonthlyHelp: Bazowo reset co roku, wymagany symbol $M w wygladzie numeru faktury

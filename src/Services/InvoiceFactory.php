@@ -22,14 +22,25 @@ class InvoiceFactory
 
     private function createInvoiceNumber(Users $user, Invoice $invoice)
     {
-        if (0 === count($user->getInvoices())) {
-            $number = $user->getBaseNumber();
-        } else {
-            $number = count($user->getInvoices()) + $user->getBaseNumber();
+        $baseYear = $user->getYear();
+        $baseMonth = $user->getMonth();
+        $saleTime = $invoice->getSalesDate();
+        if ($baseYear < (int)$saleTime->format('Y')) {
+            $user->setYear((int)$saleTime->format('Y'));
+            $user->setBaseNumber(1);
         }
+
+        if ($user->getIsMonth() && $baseMonth < (int)$saleTime->format('m')) {
+            $user->setYear((int)$saleTime->format('m'));
+            $user->setBaseNumber(1);
+        }
+
+        $number = $user->getBaseNumber();
         $year = $invoice->getCreatedAt()->format('Y');
         $month = $invoice->getCreatedAt()->format('m');
 
+        $user->setBaseNumber($user->getBaseNumber() + 1);
+        
         return $this->createInvoiceNumberFromTemplate($user->getInvoiceNumberTemplate(), $number, $year, $month);
     }
 
